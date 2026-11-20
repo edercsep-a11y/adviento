@@ -456,7 +456,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
     if (m) return m[1];
     return /^[A-Za-z0-9_-]{11}$/.test(url) ? url : "";
   }
-  var URL_PAGINA = "https://edercsep-a11y.github.io/adviento/";
+  var URL_PAGINA = A.paginaOficial || "https://www.divinadataoficial.com/#adviento";
 
   /* ---------- corona ---------- */
   function rnd(seed){ return function(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
@@ -658,7 +658,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
   }
   function enlaceWa(i){
     var d = D[i];
-    var txt = "Adviento día a día, día " + (i + 1) + " de 26 (" + fechaLarga(d.f) + "): «" + d.titulo + "». Evangelio: " + d.lects[d.lects.length - 1][1] + ". Recorre la ruta de oración de hoy con Divina Data: " + URL_PAGINA + "#dia-" + d.f;
+    var txt = "Adviento día a día, día " + (i + 1) + " de 26 (" + fechaLarga(d.f) + "): «" + d.titulo + "». Evangelio: " + d.lects[d.lects.length - 1][1] + ". Recorre la ruta de oración de hoy y conoce todo lo que ofrece Divina Data: " + URL_PAGINA;
     return "https://wa.me/?text=" + encodeURIComponent(txt);
   }
   function pararReloj(){ if (reloj) { clearInterval(reloj); reloj = null; } }
@@ -736,7 +736,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") cerrar(); });
 
   [].forEach.call(document.querySelectorAll(".js-grupo"), function(a){ if (A.grupo) a.href = A.grupo; else a.hidden = true; });
-  $("#waPagina").href = "https://wa.me/?text=" + encodeURIComponent("Vivamos juntos el Adviento día a día: una ruta de oración y un video cada día, del 29 de noviembre al 24 de diciembre, y cada noche a las 10:00 p. m. rezamos juntos. Divina Data: " + URL_PAGINA + (A.grupo ? " Grupo de WhatsApp: " + A.grupo : ""));
+  $("#waPagina").href = "https://wa.me/?text=" + encodeURIComponent("Vivamos juntos el Adviento día a día: una ruta de oración y un video cada día, del 29 de noviembre al 24 de diciembre, y cada noche a las 10:00 p. m. rezamos juntos. Entra aquí y conoce todo lo que ofrece Divina Data: " + URL_PAGINA + (A.grupo ? " Grupo de WhatsApp: " + A.grupo : ""));
 
   /* abrir un día desde el enlace (#dia-2026-12-03) */
   var m = location.hash.match(/^#dia-(\d{4}-\d{2}-\d{2})$/);

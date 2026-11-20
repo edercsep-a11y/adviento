@@ -14,6 +14,8 @@
 window.ADVIENTO = {
   /* Video de introducción (enlace de YouTube): */
   introVideo: "",
+  /* Enlace que se comparte por WhatsApp (página oficial de Divina Data): */
+  paginaOficial: "https://www.divinadataoficial.com/#adviento",
   /* Grupo de WhatsApp (oración cada noche a las 10:00 p. m.): */
   grupo: "https://chat.whatsapp.com/DhPlqGsIb1p7mvw0WoxptL",
   inicio: "2026-11-29",

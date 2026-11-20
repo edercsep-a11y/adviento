@@ -3,7 +3,8 @@
 Página de Divina Data para vivir el Adviento con un video de 3 minutos cada día
 (29 de noviembre al 24 de diciembre de 2026).
 
-Dirección: https://edercsep-a11y.github.io/adviento/
+Dirección técnica: https://edercsep-a11y.github.io/adviento/
+Enlace para compartir: https://www.divinadataoficial.com/#adviento (los botones de WhatsApp usan este).
 
 ## Video de introducción
 
