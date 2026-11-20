@@ -97,7 +97,7 @@ a{color:inherit}
 .como{max-width:var(--ancho);margin:0 auto;padding:40px clamp(18px,5vw,48px) 96px}
 .como h2,.camino h2,.final h2{font-family:var(--display);font-weight:600;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.01em;margin:0 0 14px}
 .como > p{max-width:36em;margin:0 0 40px;color:rgba(243,236,221,.8)}
-.pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,40px);counter-reset:paso}
+.pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:36px clamp(16px,3vw,40px);counter-reset:paso}
 .pasos li{counter-increment:paso;padding-top:22px;border-top:1px solid rgba(243,236,221,.18)}
 .pasos li::before{content:counter(paso);display:block;font-family:var(--display);font-size:64px;line-height:.9;color:var(--llama);margin-bottom:10px}
 .pasos h3{margin:0 0 6px;font-family:var(--display);font-weight:600;font-size:32px}
@@ -165,34 +165,81 @@ a{color:inherit}
 .espera p{margin:0 auto;max-width:24em;font-size:17px;color:rgba(243,236,221,.85)}
 .espera b{display:block;font-family:var(--display);font-size:28px;font-weight:600;margin-bottom:6px;color:var(--cera)}
 .sala-marca{position:absolute;right:14px;top:12px;z-index:2;width:88px;opacity:.85;pointer-events:none}
-.sala-info{padding:30px clamp(20px,3.4vw,44px) 26px;display:grid;grid-template-columns:1fr 1fr;gap:16px clamp(24px,4vw,56px);align-items:start}
-.info-a,.info-b{display:flex;flex-direction:column;gap:16px;min-width:0}
-.sala-nav{grid-column:1/-1}
-.sala-meta{margin:0;font-size:16px;font-weight:700;color:var(--llama)}
-.sala-info h3{margin:-6px 0 0;font-family:var(--display);font-weight:600;font-size:clamp(34px,3.4vw,46px);line-height:1}
-.sala-cel{margin:0;display:flex;gap:10px;align-items:center;color:rgba(243,236,221,.85);font-size:17px}
-.lecturas{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;padding:14px 0;border-top:1px solid rgba(243,236,221,.14);border-bottom:1px solid rgba(243,236,221,.14)}
-.lecturas dt{font-size:15px;color:rgba(243,236,221,.65)}
-.lecturas dd{margin:0;font-weight:700}
+.ruta-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:30px clamp(20px,4vw,48px) 6px}
+.sala-meta{margin:0 0 6px;font-size:16px;font-weight:700;color:var(--llama)}
+.ruta-cab h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(36px,4vw,54px);line-height:1}
+.sala-cel{margin:10px 0 0;display:flex;gap:10px;align-items:center;color:rgba(243,236,221,.85);font-size:17px}
+.cerrar-x{all:unset;cursor:pointer;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(243,236,221,.08);color:var(--cera);font-size:26px;line-height:1;transition:background-color .2s ease}
+.cerrar-x:hover{background:rgba(243,236,221,.16)}
+.rail{list-style:none;margin:18px 0 0;padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(6,1fr);gap:8px;counter-reset:r}
+.rail button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;flex-direction:column;gap:2px;padding:12px 4px 12px;border-top:3px solid rgba(243,236,221,.16);transition:border-color .3s var(--salida),color .2s ease;color:rgba(243,236,221,.6)}
+.rail b{font-family:var(--display);font-size:28px;line-height:1;font-weight:600}
+.rail span{font-size:14px;font-weight:700;line-height:1.2}
+.rail button:hover{color:var(--cera)}
+.rail button.hecho{border-top-color:rgba(242,180,90,.5);color:rgba(243,236,221,.8)}
+.rail button[aria-current="step"]{border-top-color:var(--llama);color:var(--cera)}
+.rail button[aria-current="step"] b{color:var(--llama)}
+.rail button:focus-visible{outline:3px solid var(--llama);outline-offset:2px}
+.paso{max-width:880px;margin:0 auto;padding:26px clamp(20px,4vw,48px) 10px;display:flex;flex-direction:column;gap:18px}
+.paso.entra{animation:entra .45s var(--salida)}
+.paso h4{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(32px,3.4vw,42px);line-height:1.05}
+.paso .guia{margin:-8px 0 0;color:rgba(243,236,221,.7);font-size:17px}
+.rezo{margin:0;padding:22px 24px;border-radius:18px;background:var(--noche-3);font-family:var(--display);font-size:clamp(23px,2.2vw,27px);line-height:1.4;text-align:center}
+.rezo small{display:block;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--violeta-claro);margin-bottom:6px}
+.rezo em{color:var(--llama-suave)}
+.lect{padding:18px 20px;border-left:3px solid var(--violeta-claro);background:rgba(243,236,221,.04);border-radius:0 16px 16px 0}
+.lect.ev{border-left-color:var(--llama)}
+.lect p{margin:0}
+.lect .et{font-size:14px;font-weight:700;color:rgba(243,236,221,.65)}
+.lect .ci{font-weight:700;font-size:19px;margin:2px 0 6px}
+.lect .re{font-size:18px;color:rgba(243,236,221,.9)}
 .leer{font-size:16px;font-weight:700;color:var(--llama-suave);text-underline-offset:4px}
 .nota-lect{margin:0;font-size:15px;color:rgba(243,236,221,.65)}
-.caja{padding:16px 18px;border-radius:16px;background:var(--noche-3)}
-.caja h4{margin:0 0 4px;font-family:var(--display);font-weight:600;font-size:24px;line-height:1.1}
-.caja h4 small{display:block;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--violeta-claro);margin-bottom:2px}
-.caja p{margin:0;font-size:17px;color:rgba(243,236,221,.88)}
-.caja.vive{background:linear-gradient(135deg,rgba(242,180,90,.18),rgba(242,180,90,.06))}
-.caja.vive h4 small{color:var(--llama)}
+.paso .pantalla{border-radius:18px;overflow:hidden}
+.caja{padding:18px 20px;border-radius:16px;background:var(--noche-3)}
+.caja h5{margin:0 0 4px;font-family:var(--display);font-weight:600;font-size:25px;line-height:1.1}
+.caja h5 small{display:block;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--violeta-claro);margin-bottom:2px}
+.caja p{margin:0;font-size:18px;color:rgba(243,236,221,.9)}
+.caja .fuente{margin-top:6px;font-size:14px;color:rgba(243,236,221,.6)}
+.caja.vive{background:linear-gradient(135deg,rgba(242,180,90,.2),rgba(242,180,90,.06))}
+.caja.vive h5 small{color:var(--llama)}
+.med{margin:0;font-family:var(--display);font-size:clamp(24px,2.4vw,30px);line-height:1.3}
+.preguntas{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px;font-size:18px}
+.preguntas li::marker{color:var(--llama)}
+.silencio{display:flex;align-items:center;gap:18px;padding:16px 18px;border-radius:16px;border:1px dashed rgba(243,236,221,.25)}
+.silencio .velita{position:relative;width:26px;height:64px;flex:none}
+.silencio .cera{position:absolute;left:6px;right:6px;bottom:0;height:var(--alto,44px);border-radius:3px 3px 2px 2px;background:var(--violeta);transition:height 1s linear}
+.silencio .fuego{position:absolute;left:50%;bottom:calc(var(--alto,44px) + 2px);width:10px;height:16px;margin-left:-5px;border-radius:50% 50% 45% 45%;background:radial-gradient(circle at 50% 70%,#FFF4D6,var(--llama) 55%,#E0782E);transition:bottom 1s linear}
+.silencio p{margin:0;font-size:17px;color:rgba(243,236,221,.85)}
+.silencio .btn{min-height:46px;padding:10px 16px;font-size:16px;background:transparent;border-color:rgba(243,236,221,.35);color:var(--cera)}
+.preces{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.preces li{padding:14px 18px;border-radius:14px;background:rgba(243,236,221,.05);font-size:18px}
+.preces li span{display:block;margin-top:4px;font-family:var(--display);font-style:italic;font-size:22px;color:var(--llama-suave)}
 .sala-acciones{display:flex;flex-wrap:wrap;gap:10px}
 .sala-acciones .btn{min-height:48px;padding:10px 18px;font-size:16px}
 .btn.vivir{background:var(--cera);color:var(--tinta)}
 .btn.vivir[aria-pressed="true"]{background:#2E6B4F;color:#fff}
 .btn.wa{background:#1F9D55;color:#fff}
 .btn.wa:hover{background:#178a49}
-.sala-nav{display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(243,236,221,.14);padding-top:14px}
-.sala-nav button{all:unset;cursor:pointer;font-weight:700;font-size:16px;padding:8px 4px;color:rgba(243,236,221,.8)}
-.sala-nav button:hover{color:var(--cera)}
-.sala-nav button[disabled]{opacity:.3;cursor:default}
-.sala-nav .cerrar{color:var(--llama-suave)}
+.ruta-nav{max-width:880px;margin:8px auto 0;padding:16px clamp(20px,4vw,48px) 30px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.ruta-nav .btn{min-height:50px}
+.ruta-nav .atras{background:transparent;border-color:rgba(243,236,221,.3);color:var(--cera)}
+.ruta-nav .atras[disabled]{display:none}
+.ruta-nav .sigue{margin-left:auto}
+
+/* intro */
+.intro-video{max-width:var(--ancho);margin:0 auto;padding:0 clamp(18px,5vw,48px) 96px}
+.intro-video .pantalla{border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.intro-video h2{font-family:var(--display);font-weight:600;font-size:clamp(36px,4.4vw,56px);line-height:1;margin:0 0 10px}
+.intro-video > p{margin:0 0 26px;max-width:40em;color:rgba(243,236,221,.8)}
+@media (max-width:760px){
+  .rail{display:flex;overflow-x:auto;scrollbar-width:none;gap:6px}
+  .rail::-webkit-scrollbar{display:none}
+  .rail li{flex:0 0 auto}
+  .rail button{min-width:82px}
+  .ruta-nav .btn{flex:1 1 100%}
+  .ruta-cab{padding-top:22px}
+}
 
 /* final */
 .final{background:var(--papel);color:var(--tinta);padding:0 clamp(18px,5vw,48px) 110px}
@@ -209,7 +256,6 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
 /* responsive */
 @media (max-width:1060px){
   .dias{grid-template-columns:repeat(4,1fr)}
-  .sala-info{grid-template-columns:1fr}
 }
 @media (max-width:860px){
   .portada{grid-template-columns:1fr;padding-top:96px;text-align:left}
@@ -243,7 +289,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
 <header class="barra">
   <a class="marca" href="https://www.divinadataoficial.com" target="_top" aria-label="Divina Data, ir a la página principal"><img src="img/logo-blanco.png" alt="Divina Data" width="420" height="209"></a>
   <nav aria-label="Secciones">
-    <a href="#como">Cómo vivirlo</a>
+    <a href="#como">La ruta</a>
     <a href="#camino">El camino</a>
   </nav>
 </header>
@@ -258,7 +304,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
       <p class="estado" id="estado" aria-live="polite"></p>
       <div class="acciones">
         <a class="btn luz" id="btnHoy" href="#camino">Ver el camino</a>
-        <a class="btn linea" href="#como">Cómo vivirlo</a>
+        <a class="btn linea" href="#intro">Ver la introducción</a>
       </div>
     </div>
     <figure class="corona" id="corona">
@@ -267,13 +313,22 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
     </figure>
   </section>
 
+  <section class="intro-video" id="intro" aria-labelledby="introTit">
+    <h2 id="introTit">Antes de empezar</h2>
+    <p>Mira la introducción: qué es el Adviento, por qué la Iglesia lo vive como un camino y cómo recorrer esta ruta cada día.</p>
+    <div class="pantalla" id="introPantalla"></div>
+  </section>
+
   <section class="como" id="como">
-    <h2>Tres minutos que cambian el día</h2>
-    <p>Cada día del Adviento se abre en su fecha, como una vela más en el camino hacia Belén. Solo necesitas unos minutos.</p>
+    <h2>Una ruta de oración cada día</h2>
+    <p>Cada día del Adviento se recorre como una Liturgia de la Palabra: escuchar a Dios, dejar que la Palabra entre en el corazón y responderle con la vida. Son unos 15 minutos.</p>
     <ol class="pasos">
-      <li><h3>Mira</h3><p>El video del día: el Evangelio, la liturgia y una palabra de los Padres de la Iglesia, en 3 minutos.</p></li>
-      <li><h3>Aprende</h3><p>Una enseñanza breve para entender qué celebramos y por qué la Iglesia lo vive así.</p></li>
-      <li><h3>Vive</h3><p>Un propósito concreto para ese día. Márcalo como vivido y mira cómo avanza tu camino.</p></li>
+      <li><h3>Preparamos el corazón</h3><p>Encendemos la vela de la corona, hacemos la señal de la cruz y pedimos: «Ven, Señor Jesús».</p></li>
+      <li><h3>Escuchamos la Palabra</h3><p>La primera lectura y el salmo del día, con una explicación sencilla de cada una.</p></li>
+      <li><h3>Acogemos el Evangelio</h3><p>El Evangelio del día y su video de 3 minutos, con la liturgia y los Padres de la Iglesia.</p></li>
+      <li><h3>Meditamos</h3><p>Una reflexión, una palabra de los santos, dos preguntas y un minuto de silencio.</p></li>
+      <li><h3>Oramos</h3><p>La oración de los fieles, respondiendo «Ven, Señor Jesús», y el Padrenuestro.</p></li>
+      <li><h3>Vivimos</h3><p>La oración final y un propósito concreto. Márcalo como vivido y avanza en tu camino.</p></li>
     </ol>
   </section>
 
@@ -313,6 +368,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
 </footer>
 
 <script src="dias.js"></script>
+<script src="ruta.js"></script>
 <script>
 (function(){
   "use strict";
@@ -431,7 +487,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
   } else {
     var dh = D[idxHoy];
     estado.innerHTML = "<b>Día " + (idxHoy + 1) + "</b><span>de 26. Hoy: «" + dh.titulo + "»</span>";
-    btnHoy.textContent = "Ver el video de hoy";
+    btnHoy.textContent = "Empezar la ruta de hoy";
     btnHoy.addEventListener("click", function(ev){ ev.preventDefault(); abrir(idxHoy, true); });
   }
 
@@ -462,7 +518,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
     var d = D[i], b = botones[i], ok = abierto(d), hoy = d.f === HOY, viv = !!vividos[d.f];
     b.className = "dia" + (hoy ? " hoy" : "") + (ok ? "" : " cerrado") + (viv ? " vivido" : "");
     b.setAttribute("aria-disabled", ok ? "false" : "true");
-    var est = !ok ? "Se abre el " + fechaCorta(d.f) : viv ? "✓ Vivido" : hoy ? "Hoy" : idVideo(d.video) ? "Ver video" : "Abrir";
+    var est = !ok ? "Se abre el " + fechaCorta(d.f) : viv ? "✓ Vivido" : hoy ? "Hoy: empezar la ruta" : "Empezar la ruta";
     var fecha = partes(d.f);
     b.innerHTML = '<span class="dia-num">' + fecha.getUTCDate() + '</span>' +
       '<span class="dia-sem"><i class="punto ' + d.color + '" aria-hidden="true"></i>' + DIAS_S[fecha.getUTCDay()] + '</span>' +
@@ -482,45 +538,123 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
   }
   pintarProgreso();
 
-  /* ---------- sala de cine ---------- */
-  var abiertoIdx = -1;
-  function htmlSala(i){
-    var d = D[i], id = idVideo(d.video), ok = abierto(d);
-    var pantalla;
-    if (id) {
-      pantalla = '<button class="poster" type="button" style="background-image:url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)" aria-label="Reproducir el video del día ' + (i + 1) + '"><span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>Ver el video, 3 min</span></button>';
-    } else {
-      pantalla = '<div class="espera"><div><svg viewBox="0 0 70 110" aria-hidden="true"><rect x="27" y="52" width="16" height="58" rx="3" fill="#6B4BB0"/><g class="vela"><g class="llama-in"><path d="M35 8 C44 22 46 36 35 46 C24 36 26 22 35 8Z" fill="url(#g-llama)"/><path d="M35 26 C39 32 39 38 35 42 C31 38 31 32 35 26Z" fill="#FFFBEF"/></g></g></svg>' +
-        '<b>' + (ok ? "El video se publica muy pronto" : "Este día se abre el " + fechaLarga(d.f)) + '</b>' +
-        '<p>Mientras tanto, lee el Evangelio del día y vive el propósito.</p></div></div>';
+  /* ---------- reproductor ---------- */
+  var VELA_SVG = '<svg viewBox="0 0 70 110" aria-hidden="true"><rect x="27" y="52" width="16" height="58" rx="3" fill="#6B4BB0"/><g class="vela"><g class="llama-in"><path d="M35 8 C44 22 46 36 35 46 C24 36 26 22 35 8Z" fill="url(#g-llama)"/><path d="M35 26 C39 32 39 38 35 42 C31 38 31 32 35 26Z" fill="#FFFBEF"/></g></g></svg>';
+  function htmlVideo(url, titulo, espera){
+    var id = idVideo(url);
+    if (id) return '<button class="poster" type="button" data-id="' + id + '" data-tit="' + titulo.replace(/"/g, "&quot;") + '" style="background-image:url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)" aria-label="Reproducir: ' + titulo.replace(/"/g, "&quot;") + '"><span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>Ver el video</span></button><img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209">';
+    return '<div class="espera"><div>' + VELA_SVG + '<b>' + espera[0] + '</b><p>' + espera[1] + '</p></div></div><img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209">';
+  }
+  function activarVideo(scope){
+    var p = scope.querySelector(".poster"); if (!p) return;
+    p.addEventListener("click", function(){
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + p.dataset.id + "?autoplay=1&rel=0&playsinline=1&modestbranding=1";
+      f.title = p.dataset.tit; f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+      p.replaceWith(f);
+    });
+  }
+  var introP = $("#introPantalla");
+  introP.innerHTML = htmlVideo(A.introVideo, "Introducción al Adviento", ["La introducción se publica muy pronto", "Mientras tanto, recorre la ruta de cada día desde el domingo 29 de noviembre."]);
+  activarVideo(introP);
+
+  /* ---------- la ruta de oración del día ---------- */
+  var PASOS = ["Preparamos el corazón", "Escuchamos la Palabra", "Acogemos el Evangelio", "Meditamos", "Oramos", "Vivimos"];
+  var CORTOS = ["Preparar", "Palabra", "Evangelio", "Meditar", "Orar", "Vivir"];
+  var abiertoIdx = -1, pasoActual = 0, reloj = null;
+  function velasDe(d){ return semanaDe(d.f); }
+  function pasoHTML(i, k){
+    var d = D[i], r = (window.RUTA || {})[d.f] || {res:[], preg:[], preces:[]}, n = velasDe(d);
+    var ev = d.lects.length - 1;
+    if (k === 0) return '<h4>' + PASOS[0] + '</h4><p class="guia">Busca un lugar tranquilo. Si tienes corona de Adviento, enciéndela.</p>' +
+      '<p class="rezo"><small>Encendemos</small>' + (n === 1 ? "La primera vela de la corona" : n === 2 ? "Dos velas de la corona" : n === 3 ? "Tres velas: hoy brilla también la rosa" : "Las cuatro velas de la corona") + '</p>' +
+      '<p class="rezo"><small>Nos santiguamos</small>En el nombre del Padre, y del Hijo, y del Espíritu Santo. Amén.</p>' +
+      '<p class="rezo"><small>Invocamos, tres veces, despacio</small><em>Ven, Señor Jesús.</em></p>' +
+      '<div class="caja"><h5><small>Hoy celebramos</small>' + d.cel + '</h5><p>' + d.aprende.p + '</p></div>';
+    if (k === 1) {
+      var h = '<h4>' + PASOS[1] + '</h4><p class="guia">Lee despacio en tu Biblia o en el enlace. Aquí tienes de qué trata cada lectura.</p>';
+      for (var j = 0; j < ev; j++) h += '<div class="lect"><p class="et">' + d.lects[j][0] + '</p><p class="ci">' + d.lects[j][1] + '</p><p class="re">' + (r.res[j] || "") + '</p></div>';
+      return h + linkLeer(d);
     }
-    var lects = d.lects.map(function(l){ return '<dt>' + l[0] + '</dt><dd>' + l[1] + '</dd>'; }).join("");
-    var leer = d.f === "2026-12-12"
-      ? '<p class="nota-lect">En el Perú se celebra como fiesta, con lecturas propias del calendario litúrgico peruano.</p>'
-      : '<a class="leer" href="https://www.ewtn.com/es/catolicismo/lecturas/' + d.f + '" target="_blank" rel="noopener">Leer las lecturas completas</a>';
+    if (k === 2) return '<h4>' + PASOS[2] + '</h4><p class="rezo"><small>Aclamación antes del Evangelio</small><em>¡Aleluya, aleluya!</em></p>' +
+      '<div class="lect ev"><p class="et">Evangelio</p><p class="ci">' + d.lects[ev][1] + '</p><p class="re">' + (r.res[ev] || "") + '</p></div>' +
+      '<div class="pantalla">' + htmlVideo(d.video, "Video del día " + (i + 1) + ": " + d.titulo, ["El video se publica muy pronto", "Lee el Evangelio en tu Biblia y continúa la ruta."]) + '</div>';
+    if (k === 3) return '<h4>' + PASOS[3] + '</h4><p class="med">' + (r.med || "") + '</p>' +
+      (r.padre ? '<div class="caja"><h5><small>La voz de los santos</small>' + r.padre.q + '</h5><p>' + r.padre.d + '</p><p class="fuente">' + r.padre.f + '</p></div>' : '') +
+      '<div class="caja"><h5><small>Para orar</small>Pregúntate</h5><ol class="preguntas">' + (r.preg || []).map(function(q){ return '<li>' + q + '</li>'; }).join("") + '</ol></div>' +
+      '<div class="silencio" id="silencio"><div class="velita" aria-hidden="true"><i class="cera"></i><i class="fuego"></i></div><p id="silTxt">Quédate un minuto en silencio, con Jesús.</p><button type="button" class="btn" id="silBtn">Empezar el minuto</button></div>';
+    if (k === 4) return '<h4>' + PASOS[4] + '</h4><p class="guia">A cada petición respondemos: «Ven, Señor Jesús».</p><ul class="preces">' +
+      (r.preces || []).map(function(p){ return '<li>' + p + '<span>Ven, Señor Jesús.</span></li>'; }).join("") + '</ul>' +
+      '<p class="rezo"><small>Padrenuestro</small>Padre nuestro, que estás en el cielo, santificado sea tu Nombre; venga a nosotros tu reino; hágase tu voluntad en la tierra como en el cielo. Danos hoy nuestro pan de cada día; perdona nuestras ofensas, como también nosotros perdonamos a los que nos ofenden; no nos dejes caer en la tentación, y líbranos del mal. Amén.</p>';
     var viv = !!vividos[d.f];
-    return '<div class="pantalla">' + pantalla + '<img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209"></div>' +
-      '<div class="sala-info"><div class="info-a">' +
-        '<p class="sala-meta">Día ' + (i + 1) + ' de 26, ' + fechaLarga(d.f) + '</p>' +
-        '<h3>' + d.titulo + '</h3>' +
-        '<p class="sala-cel"><i class="punto ' + d.color + '" aria-hidden="true"></i>' + d.cel + (d.rango && d.rango !== "Feria" && d.rango !== "Domingo" ? ', ' + d.rango.toLowerCase() : '') + (d.ant ? '. Antífona: ' + d.ant : '') + '</p>' +
-        '<dl class="lecturas">' + lects + '</dl>' + leer + '</div><div class="info-b">' +
-        '<div class="caja"><h4><small>Para aprender</small>' + d.aprende.t + '</h4><p>' + d.aprende.p + '</p></div>' +
-        '<div class="caja vive"><h4><small>Para vivir hoy</small>Tu propósito</h4><p>' + d.vivir + '</p></div>' +
-        '<div class="sala-acciones">' +
-          '<button class="btn vivir" type="button" aria-pressed="' + viv + '">' + (viv ? "✓ Lo viví" : "Marcar como vivido") + '</button>' +
-          '<a class="btn wa" target="_blank" rel="noopener" href="' + enlaceWa(i) + '">Compartir este día</a>' +
-        '</div></div>' +
-        '<div class="sala-nav"><button type="button" class="ant"' + (i === 0 ? " disabled" : "") + '>Día anterior</button><button type="button" class="cerrar">Cerrar</button><button type="button" class="sig"' + (i === N - 1 || !abierto(D[i + 1]) ? " disabled" : "") + '>Día siguiente</button></div>' +
-      '</div>';
+    return '<h4>' + PASOS[5] + '</h4><p class="rezo"><small>Oración final</small>' + (r.oracion || "") + '</p>' +
+      '<div class="caja vive"><h5><small>Para vivir hoy</small>Tu propósito</h5><p>' + d.vivir + '</p></div>' +
+      '<p class="rezo"><small>Terminamos</small>El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. Amén.</p>' +
+      '<div class="sala-acciones"><button class="btn vivir" type="button" aria-pressed="' + viv + '">' + (viv ? "✓ Lo viví hoy" : "Marcar como vivido") + '</button>' +
+      '<a class="btn wa" target="_blank" rel="noopener" href="' + enlaceWa(i) + '">Compartir este día</a></div>';
+  }
+  function linkLeer(d){
+    return d.f === "2026-12-12"
+      ? '<p class="nota-lect">En el Perú se celebra como fiesta, con lecturas propias del calendario litúrgico peruano.</p>'
+      : '<a class="leer" href="https://www.ewtn.com/es/catolicismo/lecturas/' + d.f + '" target="_blank" rel="noopener">Leer las lecturas completas del día</a>';
+  }
+  function htmlSala(i){
+    var d = D[i];
+    return '<div class="ruta-cab"><div><p class="sala-meta">Día ' + (i + 1) + ' de 26, ' + fechaLarga(d.f) + '</p><h3>' + d.titulo + '</h3>' +
+      '<p class="sala-cel"><i class="punto ' + d.color + '" aria-hidden="true"></i>' + d.cel + (d.ant ? '. Antífona: ' + d.ant : '') + '</p></div>' +
+      '<button type="button" class="cerrar-x" aria-label="Cerrar la ruta del día">×</button></div>' +
+      '<ol class="rail" aria-label="Pasos de la ruta">' + PASOS.map(function(p, k){ return '<li><button type="button" data-k="' + k + '"><b>' + (k + 1) + '</b><span>' + CORTOS[k] + '</span></button></li>'; }).join("") + '</ol>' +
+      '<div class="paso" aria-live="polite"></div>' +
+      '<div class="ruta-nav"><button type="button" class="btn atras">Paso anterior</button><button type="button" class="btn luz sigue">Siguiente paso</button></div>';
   }
   function enlaceWa(i){
     var d = D[i];
-    var txt = "Adviento día a día, día " + (i + 1) + " de 26 (" + fechaLarga(d.f) + "): «" + d.titulo + "». Evangelio: " + d.lects[d.lects.length - 1][1] + ". Mira el video de 3 minutos y vive el Adviento con Divina Data: " + URL_PAGINA + "#dia-" + d.f;
+    var txt = "Adviento día a día, día " + (i + 1) + " de 26 (" + fechaLarga(d.f) + "): «" + d.titulo + "». Evangelio: " + d.lects[d.lects.length - 1][1] + ". Recorre la ruta de oración de hoy con Divina Data: " + URL_PAGINA + "#dia-" + d.f;
     return "https://wa.me/?text=" + encodeURIComponent(txt);
+  }
+  function pararReloj(){ if (reloj) { clearInterval(reloj); reloj = null; } }
+  function irPaso(k, desplazar){
+    pararReloj();
+    var s = salas[semanaDe(D[abiertoIdx].f)], i = abiertoIdx, d = D[i];
+    pasoActual = k;
+    var cont = $(".paso", s);
+    cont.innerHTML = pasoHTML(i, k);
+    cont.classList.remove("entra"); void cont.offsetWidth; cont.classList.add("entra");
+    [].forEach.call(s.querySelectorAll(".rail button"), function(b, j){
+      if (j === k) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current");
+      b.classList.toggle("hecho", j < k);
+    });
+    var rail = $(".rail", s), act = rail.children[k];
+    if (rail.scrollWidth > rail.clientWidth) rail.scrollLeft = Math.max(0, act.offsetLeft - rail.offsetLeft - 40);
+    $(".atras", s).disabled = k === 0;
+    var sig = $(".sigue", s);
+    if (k < 5) sig.textContent = "Siguiente: " + PASOS[k + 1];
+    else if (i < N - 1 && abierto(D[i + 1])) sig.textContent = "Ir al día " + (i + 2);
+    else sig.textContent = "Volver al camino";
+    activarVideo(cont);
+    if (k === 3) {
+      var btn = $("#silBtn", cont), txt = $("#silTxt", cont), box = $("#silencio", cont);
+      btn.addEventListener("click", function(){
+        pararReloj(); var t = 60; btn.textContent = "En silencio…"; btn.disabled = true; box.style.setProperty("--alto", "44px");
+        reloj = setInterval(function(){
+          t--; box.style.setProperty("--alto", Math.max(6, Math.round(44 * t / 60)) + "px");
+          txt.textContent = t > 0 ? "Quédate en silencio con Jesús… " + t + " s" : "Gracias, Señor. Continúa la ruta.";
+          if (t <= 0) { pararReloj(); btn.textContent = "Repetir el minuto"; btn.disabled = false; }
+        }, 1000);
+      });
+    }
+    if (k === 5) $(".vivir", cont).addEventListener("click", function(){
+      if (vividos[d.f]) delete vividos[d.f]; else vividos[d.f] = 1;
+      guardar(); var v = !!vividos[d.f];
+      this.setAttribute("aria-pressed", v); this.textContent = v ? "✓ Lo viví hoy" : "Marcar como vivido";
+      pintarDia(i); botones[i].classList.add("abierto-ahora"); pintarProgreso();
+    });
+    avisarAltura();
+    if (desplazar) setTimeout(function(){ var r = s.getBoundingClientRect(); if (r.top < 0 || r.top > innerHeight * .4) s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "start"}); }, 30);
   }
   function cerrar(){
     if (abiertoIdx < 0) return;
+    pararReloj();
     var sem = semanaDe(D[abiertoIdx].f), s = salas[sem];
     s.hidden = true; s.innerHTML = "";
     botones[abiertoIdx].classList.remove("abierto-ahora");
@@ -532,33 +666,23 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
     if (abiertoIdx === i) { cerrar(); return; }
     cerrar();
     var s = salas[semanaDe(d.f)];
-    s.innerHTML = htmlSala(i); s.hidden = false; s.setAttribute("aria-label", "Día " + (i + 1) + ": " + d.titulo);
+    s.innerHTML = htmlSala(i); s.hidden = false; s.setAttribute("aria-label", "Ruta de oración del día " + (i + 1) + ": " + d.titulo);
     s.classList.remove("entra"); void s.offsetWidth; s.classList.add("entra");
     abiertoIdx = i;
     var li = botones[i].parentNode, fila = li.parentNode;
     if (fila.scrollWidth > fila.clientWidth) fila.scrollLeft = Math.max(0, li.offsetLeft - fila.offsetLeft - 18);
     botones[i].classList.add("abierto-ahora"); botones[i].setAttribute("aria-expanded", "true");
-    var p = $(".poster", s);
-    if (p) p.addEventListener("click", function(){
-      var id = idVideo(d.video), f = document.createElement("iframe");
-      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1&modestbranding=1";
-      f.title = "Video del día " + (i + 1) + ": " + d.titulo;
-      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
-      p.replaceWith(f);
+    [].forEach.call(s.querySelectorAll(".rail button"), function(b){ b.addEventListener("click", function(){ irPaso(+b.dataset.k, true); }); });
+    $(".atras", s).addEventListener("click", function(){ if (pasoActual > 0) irPaso(pasoActual - 1, true); });
+    $(".sigue", s).addEventListener("click", function(){
+      if (pasoActual < 5) irPaso(pasoActual + 1, true);
+      else if (i < N - 1 && abierto(D[i + 1])) abrir(i + 1, true);
+      else { var b = botones[i]; cerrar(); b.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "center"}); }
     });
-    $(".vivir", s).addEventListener("click", function(){
-      if (vividos[d.f]) delete vividos[d.f]; else vividos[d.f] = 1;
-      guardar(); var v = !!vividos[d.f];
-      this.setAttribute("aria-pressed", v); this.textContent = v ? "✓ Lo viví" : "Marcar como vivido";
-      pintarDia(i); botones[i].classList.add("abierto-ahora"); pintarProgreso();
-    });
-    $(".ant", s).addEventListener("click", function(){ if (i > 0) abrir(i - 1, true); });
-    $(".sig", s).addEventListener("click", function(){ if (i < N - 1) abrir(i + 1, true); });
-    $(".cerrar", s).addEventListener("click", cerrar);
+    $(".cerrar-x", s).addEventListener("click", cerrar);
+    irPaso(0, false);
     if (history.replaceState) try { history.replaceState(null, "", "#dia-" + d.f); } catch(e){}
-    avisarAltura();
-    if (desplazar !== false) setTimeout(function(){ s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "start"}); }, 40);
-    else setTimeout(function(){ var r = s.getBoundingClientRect(); if (r.bottom > innerHeight || r.top < 0) s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "nearest"}); }, 40);
+    setTimeout(function(){ s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "start"}); }, 40);
   }
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") cerrar(); });
 

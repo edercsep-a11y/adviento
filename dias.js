@@ -1,6 +1,7 @@
 /*
   ADVIENTO 2026 · DÍA A DÍA · Divina Data
   ---------------------------------------
+  Para publicar el video de introducción: pega el enlace en  introVideo: ""  (abajo).
   Para publicar el video de un día: copia el enlace de YouTube y pégalo
   entre las comillas de  video: ""  de ese día. Ejemplo:
       video: "https://youtu.be/AbCdEfGhIjk"
@@ -11,6 +12,8 @@
   (numeración de salmos del Leccionario). Domingos: ciclo B.
 */
 window.ADVIENTO = {
+  /* Video de introducción (enlace de YouTube): */
+  introVideo: "",
   inicio: "2026-11-29",
   fin: "2026-12-24",
   semanas: [

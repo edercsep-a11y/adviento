@@ -5,6 +5,10 @@ Página de Divina Data para vivir el Adviento con un video de 3 minutos cada dí
 
 Dirección: https://edercsep-a11y.github.io/adviento/
 
+## Video de introducción
+
+Pega su enlace de YouTube en `introVideo: ""`, al inicio de `dias.js`.
+
 ## Cómo publicar el video de un día
 
 1. Sube el video a YouTube (puede ser «No listado»).
@@ -16,5 +20,7 @@ Dirección: https://edercsep-a11y.github.io/adviento/
 
 Cada día se abre solo en su fecha (hora de Lima).
 Para revisar todos los días antes de tiempo: añade `?vista=todo` al final de la dirección.
+
+La ruta de oración de cada día (resumen de lecturas, meditación, preces y oración final) está en `ruta.js`.
 
 Lecturas: calendario litúrgico de la Conferencia Episcopal Peruana. Domingos: ciclo B.
