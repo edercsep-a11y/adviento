@@ -1,7 +1,7 @@
 /*
   ADVIENTO 2026 · DÍA A DÍA · Divina Data
   ---------------------------------------
-  Para publicar el video de introducción: pega el enlace en  introVideo: ""  (abajo).
+  Video de introducción: video/intro-adviento.mp4 (también acepta un enlace de YouTube en introVideo).
   Para publicar el video de un día: copia el enlace de YouTube y pégalo
   entre las comillas de  video: ""  de ese día. Ejemplo:
       video: "https://youtu.be/AbCdEfGhIjk"
@@ -13,7 +13,8 @@
 */
 window.ADVIENTO = {
   /* Video de introducción (enlace de YouTube): */
-  introVideo: "",
+  introVideo: "video/intro-adviento.mp4",
+  introPoster: "img/intro-poster.jpg",
   /* Enlace que se comparte por WhatsApp (página oficial de Divina Data): */
   paginaOficial: "https://www.divinadataoficial.com/#adviento",
   /* Grupo de WhatsApp (oración cada noche a las 10:00 p. m.): */

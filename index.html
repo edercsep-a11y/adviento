@@ -256,6 +256,7 @@ a{color:inherit}
 /* intro */
 .intro-video{max-width:var(--ancho);margin:0 auto;padding:56px clamp(18px,5vw,48px) 96px}
 .intro-video .pantalla{border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.video-intro{position:absolute;inset:0;width:100%;height:100%;display:block;background:#000;object-fit:cover}
 .intro-video h2{font-family:var(--display);font-weight:600;font-size:clamp(36px,4.4vw,56px);line-height:1;margin:0 0 10px}
 .intro-video > p{margin:0 0 26px;max-width:40em;color:rgba(243,236,221,.8)}
 @media (max-width:760px){
@@ -363,7 +364,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
 
   <section class="intro-video" id="intro" aria-labelledby="introTit">
     <h2 id="introTit">Antes de empezar</h2>
-    <p>Mira la introducción: qué es el Adviento, por qué la Iglesia lo vive como un camino y cómo recorrer esta ruta cada día.</p>
+    <p>Un minuto para entender el camino: qué encontrarás cada día y cómo rezaremos juntos este Adviento.</p>
     <div class="pantalla" id="introPantalla"></div>
   </section>
 
@@ -603,8 +604,12 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
     });
   }
   var introP = $("#introPantalla");
-  introP.innerHTML = htmlVideo(A.introVideo, "Introducción al Adviento", ["La introducción se publica muy pronto", "Mientras tanto, recorre la ruta de cada día desde el domingo 29 de noviembre."]);
-  activarVideo(introP);
+  if (/\.mp4(\?|$)/i.test(A.introVideo || "")) {
+    introP.innerHTML = '<video class="video-intro" controls playsinline preload="metadata" poster="' + (A.introPoster || "") + '"><source src="' + A.introVideo + '" type="video/mp4">Tu navegador no puede mostrar este video.</video>';
+  } else {
+    introP.innerHTML = htmlVideo(A.introVideo, "Introducción al Adviento", ["La introducción se publica muy pronto", "Mientras tanto, recorre la ruta de cada día desde el domingo 29 de noviembre."]);
+    activarVideo(introP);
+  }
 
   /* ---------- la ruta de oración del día ---------- */
   var PASOS = ["Preparamos el corazón", "Escuchamos la Palabra", "Acogemos el Evangelio", "Meditamos", "Oramos", "Vivimos"];
