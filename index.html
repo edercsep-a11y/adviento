@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maranatha: Adviento 2026 día a día | Divina Data</title>
+<meta name="description" content="Vive el Adviento paso a paso: un video de 3 minutos cada día, del 29 de noviembre al 24 de diciembre de 2026, con las lecturas, una enseñanza y un propósito. Divina Data.">
+<meta name="theme-color" content="#140F27">
+<meta property="og:title" content="Maranatha: Adviento 2026 día a día">
+<meta property="og:description" content="Un video de 3 minutos cada día para vivir el Adviento y llegar preparados a la Navidad. Divina Data.">
+<meta property="og:image" content="https://edercsep-a11y.github.io/adviento/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#140F27; --noche-2:#1D1638; --noche-3:#272047;
+  --violeta:#6B4BB0; --violeta-claro:#A08AE6;
+  --llama:#F2B45A; --llama-suave:#F7D08F;
+  --cera:#F3ECDD; --papel:#F4EEE2; --papel-2:#EAE1CF;
+  --tinta:#1E1838; --tinta-suave:#4A4266;
+  --rosa:#D98BA6; --pino:#2E5B46;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --salida:cubic-bezier(.23,1,.32,1);
+  --ancho:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{overflow-x:clip}
+body{margin:0;font-variant-numeric:lining-nums;background:var(--noche);color:var(--cera);font-family:var(--sans);font-size:19px;line-height:1.55}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--llama);outline-offset:3px;border-radius:6px}
+.oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* grano de película */
+.grano{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+
+/* barra */
+.barra{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(18px,4vw,48px)}
+.barra .marca{display:flex;align-items:center;text-decoration:none}
+.barra .marca img{height:44px;width:auto}
+.barra nav{display:flex;gap:6px}
+.barra nav a{text-decoration:none;font-size:16px;font-weight:700;padding:10px 14px;border-radius:999px;color:var(--cera);opacity:.85;transition:background-color .2s ease,opacity .2s ease}
+.barra nav a:hover{background:rgba(243,236,221,.08);opacity:1}
+
+/* portada */
+.portada{position:relative;min-height:min(100svh,940px);display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:24px;
+  padding:120px clamp(18px,5vw,72px) 72px;max-width:1360px;margin:0 auto;isolation:isolate}
+.portada::before{content:"";position:absolute;inset:-10% -30%;z-index:-1;
+  background:radial-gradient(42% 46% at 72% 52%,rgba(242,180,90,calc(.10 + var(--luz,0)*.07)),transparent 70%),
+             radial-gradient(60% 60% at 20% 10%,rgba(107,75,176,.28),transparent 70%)}
+.portada-texto{max-width:600px}
+.lema{margin:0 0 6px;font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(22px,2.2vw,28px);color:var(--llama-suave)}
+.portada h1{display:inline-block;padding:0 .06em .04em 0;margin:0;font-family:var(--display);font-weight:600;font-size:clamp(70px,9.6vw,148px);line-height:.88;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#FFF4DC 0%,var(--cera) 45%,#C9B98F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.traduccion{margin:10px 0 26px;font-family:var(--display);font-style:italic;font-size:clamp(26px,2.6vw,34px);color:var(--cera);opacity:.9}
+.intro{margin:0 0 26px;font-size:clamp(18px,1.6vw,21px);max-width:34em;color:rgba(243,236,221,.86)}
+.estado{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 28px;padding:16px 20px;border-radius:16px;
+  background:linear-gradient(90deg,rgba(242,180,90,.12),rgba(242,180,90,0));border-left:3px solid var(--llama)}
+.estado b{font-family:var(--display);font-size:46px;line-height:1;font-weight:600;color:var(--llama)}
+.estado span{font-size:18px}
+.acciones{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:14px 24px;border-radius:14px;border:2px solid transparent;
+  font-family:var(--sans);font-size:18px;font-weight:700;line-height:1.2;text-decoration:none;cursor:pointer;
+  transition:transform .18s var(--salida),background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
+.btn:active{transform:scale(.97)}
+.btn.luz{background:var(--llama);color:var(--tinta);box-shadow:0 10px 30px -10px rgba(242,180,90,.6)}
+.btn.luz:hover{background:var(--llama-suave)}
+.btn.linea{border-color:rgba(243,236,221,.35);color:var(--cera);background:transparent}
+.btn.linea:hover{border-color:var(--cera)}
+.btn svg{width:20px;height:20px;flex:none}
+
+.corona{margin:0;position:relative}
+.corona svg{width:100%;height:auto;overflow:visible}
+.corona figcaption{text-align:center;font-family:var(--display);font-style:italic;font-size:22px;color:rgba(243,236,221,.7);margin-top:-6px}
+.llama{transform-box:fill-box;transform-origin:50% 100%;transition:opacity .9s var(--salida),transform .9s var(--salida)}
+.vela.apagada .llama{opacity:0;transform:scale(.2)}
+.vela .halo{transition:opacity 1.2s ease}
+.vela.apagada .halo{opacity:0}
+.humo{opacity:0}
+.vela.humeando .humo{animation:humo 2.4s ease-out forwards}
+@keyframes humo{0%{opacity:.5;transform:translateY(0) scaleX(1)}100%{opacity:0;transform:translateY(-60px) scaleX(1.8)}}
+@media (prefers-reduced-motion:no-preference){
+  .vela:not(.apagada) .llama-in{animation:tiembla 2.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+  .vela:nth-child(2n) .llama-in{animation-duration:1.7s}
+  .vela:not(.apagada) .halo{animation:respira 3.2s ease-in-out infinite alternate}
+}
+@keyframes tiembla{0%{transform:scale(1,1) skewX(0)}35%{transform:scale(.96,1.05) skewX(2deg)}70%{transform:scale(1.03,.97) skewX(-2deg)}100%{transform:scale(.98,1.03) skewX(1deg)}}
+@keyframes respira{from{opacity:.75}to{opacity:1}}
+
+/* cómo vivirlo */
+.como{max-width:var(--ancho);margin:0 auto;padding:40px clamp(18px,5vw,48px) 96px}
+.como h2,.camino h2,.final h2{font-family:var(--display);font-weight:600;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.01em;margin:0 0 14px}
+.como > p{max-width:36em;margin:0 0 40px;color:rgba(243,236,221,.8)}
+.pasos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,40px);counter-reset:paso}
+.pasos li{counter-increment:paso;padding-top:22px;border-top:1px solid rgba(243,236,221,.18)}
+.pasos li::before{content:counter(paso);display:block;font-family:var(--display);font-size:64px;line-height:.9;color:var(--llama);margin-bottom:10px}
+.pasos h3{margin:0 0 6px;font-family:var(--display);font-weight:600;font-size:32px}
+.pasos p{margin:0;color:rgba(243,236,221,.78)}
+
+/* camino */
+.camino{background:var(--papel);color:var(--tinta);padding:96px 0 110px;border-radius:40px 40px 0 0;position:relative}
+.camino-cabeza{max-width:var(--ancho);margin:0 auto 56px;padding:0 clamp(18px,5vw,48px);display:grid;grid-template-columns:1fr auto;gap:24px 40px;align-items:end}
+.camino-cabeza p{margin:0;max-width:34em;color:var(--tinta-suave)}
+.progreso{min-width:280px}
+.velitas{display:grid;grid-template-columns:repeat(13,1fr);gap:6px;margin-bottom:10px}
+.velitas i{display:block;height:18px;border-radius:4px 4px 2px 2px;background:var(--papel-2);position:relative;transition:background-color .4s var(--salida)}
+.velitas i.si{background:var(--violeta)}
+.velitas i.si::after{content:"";position:absolute;left:50%;top:-9px;width:6px;height:9px;margin-left:-3px;border-radius:50% 50% 40% 40%;background:var(--llama)}
+.progreso p{margin:0;font-weight:700;font-size:17px}
+
+.semana{max-width:var(--ancho);margin:0 auto 72px;padding:0 clamp(18px,5vw,48px)}
+.semana-cabeza{display:grid;grid-template-columns:auto 1fr;gap:4px 24px;align-items:end;margin-bottom:22px}
+.semana-num{grid-row:span 2;font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(80px,9vw,120px);line-height:.8;color:var(--violeta)}
+.semana[data-n="3"] .semana-num{color:#B4607F}
+.semana-cabeza h3{margin:0;font-family:var(--display);font-weight:600;font-size:clamp(34px,4vw,48px);line-height:1}
+.semana-cabeza p{margin:0;color:var(--tinta-suave);max-width:40em}
+.semana-cabeza .fechas{font-weight:700;color:var(--tinta);margin-right:8px}
+
+.dias{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.dia{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:4px;width:100%;height:100%;min-height:208px;padding:16px 14px 14px;border-radius:18px;
+  background:#FFFDF8;border:1px solid rgba(30,24,56,.1);cursor:pointer;position:relative;
+  transition:transform .25s var(--salida),box-shadow .25s var(--salida),border-color .2s ease}
+.dia:hover{transform:translateY(-3px);box-shadow:0 18px 30px -22px rgba(30,24,56,.45)}
+.dia:focus-visible{outline:3px solid var(--violeta);outline-offset:3px}
+.dia-num{font-family:var(--display);font-weight:600;font-size:52px;line-height:.9}
+.dia-sem{font-size:15px;font-weight:700;color:var(--tinta-suave);display:flex;align-items:center;gap:7px}
+.punto{width:10px;height:10px;border-radius:50%;flex:none;background:var(--violeta)}
+.punto.blanco{background:#fff;box-shadow:inset 0 0 0 1.5px #B9AF98}
+.punto.rojo{background:#B23A3A}.punto.rosa{background:var(--rosa)}
+.dia-tit{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.08;margin-top:6px}
+.dia-ant{font-family:var(--display);font-style:italic;font-size:17px;color:#7A5BC0}
+.dia-ev{font-size:15px;color:var(--tinta-suave);margin-top:auto}
+.dia-estado{font-size:14px;font-weight:700;color:var(--tinta-suave)}
+.dia.hoy{background:var(--noche);color:var(--cera);border-color:var(--llama);box-shadow:0 0 0 3px rgba(242,180,90,.35),0 24px 40px -24px rgba(20,15,39,.8)}
+.dia.hoy .dia-sem,.dia.hoy .dia-ev{color:rgba(243,236,221,.75)}
+.dia.hoy .dia-estado{color:var(--llama)}
+.dia.hoy .dia-ant{color:var(--violeta-claro)}
+.dia.vivido .dia-estado{color:#2E6B4F}
+.dia.cerrado{cursor:default;background:transparent;border-style:dashed;border-color:rgba(30,24,56,.2)}
+.dia.cerrado:hover{transform:none;box-shadow:none}
+.dia.cerrado .dia-num,.dia.cerrado .dia-tit{opacity:.55}
+.dia.abierto-ahora{border-color:var(--violeta);box-shadow:0 0 0 3px rgba(107,75,176,.25)}
+
+/* sala de cine */
+.sala{margin-top:22px;background:var(--noche);color:var(--cera);border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(20,15,39,.8);scroll-margin-top:16px}
+.sala[hidden]{display:none}
+.sala.entra{animation:entra .55s var(--salida)}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.pantalla{position:relative;background:#000;aspect-ratio:16/9}
+.pantalla iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{all:unset;position:absolute;inset:0;cursor:pointer;background-size:cover;background-position:center;display:grid;place-items:center}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,39,.1),rgba(20,15,39,.65))}
+.poster span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:var(--llama);color:var(--tinta);font-weight:700;font-size:18px;transition:transform .2s var(--salida)}
+.poster:hover span{transform:scale(1.04)}
+.poster:focus-visible span{outline:3px solid #fff;outline-offset:3px}
+.espera{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;
+  background:radial-gradient(50% 60% at 50% 45%,rgba(242,180,90,.18),transparent 70%),var(--noche-2)}
+.espera svg{width:70px;height:110px;margin:0 auto 10px}
+.espera p{margin:0 auto;max-width:24em;font-size:17px;color:rgba(243,236,221,.85)}
+.espera b{display:block;font-family:var(--display);font-size:28px;font-weight:600;margin-bottom:6px;color:var(--cera)}
+.sala-marca{position:absolute;right:14px;top:12px;z-index:2;width:88px;opacity:.85;pointer-events:none}
+.sala-info{padding:30px clamp(20px,3.4vw,44px) 26px;display:grid;grid-template-columns:1fr 1fr;gap:16px clamp(24px,4vw,56px);align-items:start}
+.info-a,.info-b{display:flex;flex-direction:column;gap:16px;min-width:0}
+.sala-nav{grid-column:1/-1}
+.sala-meta{margin:0;font-size:16px;font-weight:700;color:var(--llama)}
+.sala-info h3{margin:-6px 0 0;font-family:var(--display);font-weight:600;font-size:clamp(34px,3.4vw,46px);line-height:1}
+.sala-cel{margin:0;display:flex;gap:10px;align-items:center;color:rgba(243,236,221,.85);font-size:17px}
+.lecturas{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;padding:14px 0;border-top:1px solid rgba(243,236,221,.14);border-bottom:1px solid rgba(243,236,221,.14)}
+.lecturas dt{font-size:15px;color:rgba(243,236,221,.65)}
+.lecturas dd{margin:0;font-weight:700}
+.leer{font-size:16px;font-weight:700;color:var(--llama-suave);text-underline-offset:4px}
+.nota-lect{margin:0;font-size:15px;color:rgba(243,236,221,.65)}
+.caja{padding:16px 18px;border-radius:16px;background:var(--noche-3)}
+.caja h4{margin:0 0 4px;font-family:var(--display);font-weight:600;font-size:24px;line-height:1.1}
+.caja h4 small{display:block;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--violeta-claro);margin-bottom:2px}
+.caja p{margin:0;font-size:17px;color:rgba(243,236,221,.88)}
+.caja.vive{background:linear-gradient(135deg,rgba(242,180,90,.18),rgba(242,180,90,.06))}
+.caja.vive h4 small{color:var(--llama)}
+.sala-acciones{display:flex;flex-wrap:wrap;gap:10px}
+.sala-acciones .btn{min-height:48px;padding:10px 18px;font-size:16px}
+.btn.vivir{background:var(--cera);color:var(--tinta)}
+.btn.vivir[aria-pressed="true"]{background:#2E6B4F;color:#fff}
+.btn.wa{background:#1F9D55;color:#fff}
+.btn.wa:hover{background:#178a49}
+.sala-nav{display:flex;justify-content:space-between;gap:10px;border-top:1px solid rgba(243,236,221,.14);padding-top:14px}
+.sala-nav button{all:unset;cursor:pointer;font-weight:700;font-size:16px;padding:8px 4px;color:rgba(243,236,221,.8)}
+.sala-nav button:hover{color:var(--cera)}
+.sala-nav button[disabled]{opacity:.3;cursor:default}
+.sala-nav .cerrar{color:var(--llama-suave)}
+
+/* final */
+.final{background:var(--papel);color:var(--tinta);padding:0 clamp(18px,5vw,48px) 110px}
+.final-caja{max-width:var(--ancho);margin:0 auto;background:var(--noche);color:var(--cera);border-radius:32px;padding:clamp(32px,5vw,64px);
+  display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:center;position:relative;overflow:hidden}
+.final-caja::before{content:"";position:absolute;right:-10%;top:-40%;width:60%;height:180%;background:radial-gradient(closest-side,rgba(242,180,90,.18),transparent)}
+.final-caja p{margin:0 0 6px;color:rgba(243,236,221,.82);max-width:30em}
+.final-caja .acciones{position:relative;justify-content:flex-end}
+footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw,48px) 48px;font-size:15px}
+.pie{max-width:var(--ancho);margin:0 auto;display:flex;gap:24px;justify-content:space-between;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(30,24,56,.12);padding-top:28px}
+.pie img{height:52px;width:auto}
+.pie p{margin:0;max-width:46em}
+
+/* responsive */
+@media (max-width:1060px){
+  .dias{grid-template-columns:repeat(4,1fr)}
+  .sala-info{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .portada{grid-template-columns:1fr;padding-top:96px;text-align:left}
+  .corona{order:-1;max-width:520px;margin:0 auto -10px;width:100%}
+  .pasos{grid-template-columns:1fr}
+  .camino-cabeza{grid-template-columns:1fr}
+  .final-caja{grid-template-columns:1fr}
+  .final-caja .acciones{justify-content:flex-start}
+  .barra nav a:first-child{display:none}
+}
+@media (max-width:640px){
+  body{font-size:18px}
+  .barra .marca img{height:38px}
+  .dias{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 calc(-1*clamp(18px,5vw,48px));padding:4px clamp(18px,5vw,48px) 14px;scrollbar-width:none}
+  .dias::-webkit-scrollbar{display:none}
+  .dias > li{flex:0 0 44%;scroll-snap-align:start}
+  .sala{border-radius:22px;margin-left:calc(-1*clamp(18px,5vw,48px)+8px);margin-right:calc(-1*clamp(18px,5vw,48px)+8px)}
+  .espera p{display:none}
+  .espera b{font-size:22px}
+  .espera svg{width:44px;height:70px}
+  .semana-cabeza{grid-template-columns:1fr}
+  .semana-num{grid-row:auto;font-size:72px}
+  .estado b{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+
+<header class="barra">
+  <a class="marca" href="https://www.divinadataoficial.com" target="_top" aria-label="Divina Data, ir a la página principal"><img src="img/logo-blanco.png" alt="Divina Data" width="420" height="209"></a>
+  <nav aria-label="Secciones">
+    <a href="#como">Cómo vivirlo</a>
+    <a href="#camino">El camino</a>
+  </nav>
+</header>
+
+<main>
+  <section class="portada" id="inicio">
+    <div class="portada-texto">
+      <p class="lema">Adviento 2026, día a día</p>
+      <h1>Maranatha</h1>
+      <p class="traduccion">«¡Ven, Señor!»</p>
+      <p class="intro">Un video de 3 minutos cada día, del domingo 29 de noviembre al jueves 24 de diciembre. El Evangelio, la liturgia y un propósito sencillo para vivir el Adviento paso a paso y llegar a la Navidad con el corazón preparado.</p>
+      <p class="estado" id="estado" aria-live="polite"></p>
+      <div class="acciones">
+        <a class="btn luz" id="btnHoy" href="#camino">Ver el camino</a>
+        <a class="btn linea" href="#como">Cómo vivirlo</a>
+      </div>
+    </div>
+    <figure class="corona" id="corona">
+      <svg viewBox="0 0 640 470" role="img" aria-labelledby="coronaTit"><title id="coronaTit">Corona de Adviento</title></svg>
+      <figcaption id="coronaTxt"></figcaption>
+    </figure>
+  </section>
+
+  <section class="como" id="como">
+    <h2>Tres minutos que cambian el día</h2>
+    <p>Cada día del Adviento se abre en su fecha, como una vela más en el camino hacia Belén. Solo necesitas unos minutos.</p>
+    <ol class="pasos">
+      <li><h3>Mira</h3><p>El video del día: el Evangelio, la liturgia y una palabra de los Padres de la Iglesia, en 3 minutos.</p></li>
+      <li><h3>Aprende</h3><p>Una enseñanza breve para entender qué celebramos y por qué la Iglesia lo vive así.</p></li>
+      <li><h3>Vive</h3><p>Un propósito concreto para ese día. Márcalo como vivido y mira cómo avanza tu camino.</p></li>
+    </ol>
+  </section>
+
+  <section class="camino" id="camino" aria-labelledby="caminoTit">
+    <div class="camino-cabeza">
+      <div>
+        <h2 id="caminoTit">El camino de 26 días</h2>
+        <p>Del domingo 29 de noviembre al jueves 24 de diciembre. Cada día se abre en su fecha, con las lecturas del calendario litúrgico de la Conferencia Episcopal Peruana.</p>
+      </div>
+      <div class="progreso">
+        <div class="velitas" id="velitas" aria-hidden="true"></div>
+        <p id="progresoTxt">0 de 26 días vividos</p>
+      </div>
+    </div>
+    <div id="semanas"></div>
+  </section>
+
+  <section class="final" aria-labelledby="finalTit">
+    <div class="final-caja">
+      <div>
+        <h2 id="finalTit">Vívelo en comunidad</h2>
+        <p>Comparte el camino con tu familia, tu grupo parroquial o tu catequesis. Cada día hay un video nuevo.</p>
+      </div>
+      <div class="acciones">
+        <a class="btn wa" id="waPagina" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>Compartir por WhatsApp</a>
+        <a class="btn linea" href="https://www.divinadataoficial.com/#adviento" target="_top">Ir a Divina Data</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="pie">
+    <img src="img/logo.png" alt="Divina Data" width="520" height="259">
+    <p>Lecturas según el calendario litúrgico de la Conferencia Episcopal Peruana. Domingos del ciclo B. Divina Data, al servicio de la fe en el mundo digital.</p>
+  </div>
+</footer>
+
+<script src="dias.js"></script>
+<script>
+(function(){
+  "use strict";
+  var A = window.ADVIENTO, D = A.dias, N = D.length;
+  var $ = function(s, r){ return (r||document).querySelector(s); };
+  var params = new URLSearchParams(location.search);
+  var VER_TODO = params.get("vista") === "todo";
+  var EN_MARCO = window.self !== window.top;
+  var MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  var DIAS_S = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"];
+  var ROMANOS = ["I","II","III","IV"];
+
+  function hoyLima(){
+    var p = params.get("hoy");
+    if (p && /^\d{4}-\d{2}-\d{2}$/.test(p)) return p;
+    try { return new Intl.DateTimeFormat("en-CA",{timeZone:"America/Lima",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
+    catch(e){ var d=new Date(); return d.toISOString().slice(0,10); }
+  }
+  var HOY = hoyLima();
+  function partes(iso){ var a = iso.split("-").map(Number); return new Date(Date.UTC(a[0], a[1]-1, a[2], 12)); }
+  function fechaLarga(iso){ var d = partes(iso); return DIAS_S[d.getUTCDay()] + " " + d.getUTCDate() + " de " + MESES[d.getUTCMonth()]; }
+  function fechaCorta(iso){ var d = partes(iso); return d.getUTCDate() + " " + MESES[d.getUTCMonth()].slice(0,3); }
+  function diasEntre(a, b){ return Math.round((partes(b) - partes(a)) / 864e5); }
+  function abierto(d){ return VER_TODO || d.f <= HOY; }
+  function semanaDe(iso){ var n = 0; A.semanas.forEach(function(s){ if (iso >= s.desde) n = s.n; }); return n; }
+  var ANTES = HOY < A.inicio, DESPUES = HOY > A.fin;
+  var idxHoy = D.findIndex(function(d){ return d.f === HOY; });
+
+  /* progreso guardado en este navegador */
+  var CLAVE = "dd-adviento-2026-vividos", vividos = {};
+  try { vividos = JSON.parse(localStorage.getItem(CLAVE) || "{}") || {}; } catch(e){ vividos = {}; }
+  function guardar(){ try { localStorage.setItem(CLAVE, JSON.stringify(vividos)); } catch(e){} }
+
+  function idVideo(url){
+    if (!url) return "";
+    var m = String(url).match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/);
+    if (m) return m[1];
+    return /^[A-Za-z0-9_-]{11}$/.test(url) ? url : "";
+  }
+  var URL_PAGINA = "https://edercsep-a11y.github.io/adviento/";
+
+  /* ---------- corona ---------- */
+  function rnd(seed){ return function(){ seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  function corona(){
+    var svg = $("#corona svg"), ns = "http://www.w3.org/2000/svg";
+    var cx = 320, cy = 360, rx = 236, ry = 74, r = rnd(7);
+    var defs = '<defs>' +
+      '<radialGradient id="g-halo"><stop offset="0" stop-color="#F7D08F" stop-opacity=".75"/><stop offset=".35" stop-color="#F2B45A" stop-opacity=".28"/><stop offset="1" stop-color="#F2B45A" stop-opacity="0"/></radialGradient>' +
+      '<linearGradient id="g-llama" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0782E"/><stop offset=".45" stop-color="#F2B45A"/><stop offset="1" stop-color="#FFF4D6"/></linearGradient>' +
+      '<linearGradient id="g-morada" x1="0" x2="1"><stop offset="0" stop-color="#8A6AD0"/><stop offset=".45" stop-color="#6B4BB0"/><stop offset="1" stop-color="#3C2774"/></linearGradient>' +
+      '<linearGradient id="g-rosa" x1="0" x2="1"><stop offset="0" stop-color="#F0B3C8"/><stop offset=".45" stop-color="#D98BA6"/><stop offset="1" stop-color="#9E5673"/></linearGradient>' +
+      '<radialGradient id="g-mesa" cx=".5" cy=".5"><stop offset="0" stop-color="#2A2150"/><stop offset="1" stop-color="#140F27" stop-opacity="0"/></radialGradient>' +
+      '</defs>';
+    function hojas(desde, hasta){
+      var s = "", tonos = ["#24493A","#2E5B46","#3E7558","#4F8A67","#1D3B2F"];
+      for (var i = 0; i < 190; i++){
+        var a = r() * Math.PI * 2;
+        var frente = Math.sin(a) > 0;
+        if ((desde === "atras" && frente) || (desde === "frente" && !frente)) { r(); r(); r(); continue; }
+        var j = (r() - .5) * 34, x = cx + (rx + j) * Math.cos(a), y = cy + (ry + j * .35) * Math.sin(a) - r() * 18;
+        var ang = (Math.atan2(ry * Math.cos(a), -rx * Math.sin(a)) * 180 / Math.PI) + (r() - .5) * 70;
+        var c = tonos[Math.floor(r() * tonos.length)];
+        s += '<ellipse cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="' + (16 + r() * 12).toFixed(1) + '" ry="5.5" transform="rotate(' + ang.toFixed(1) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')" fill="' + c + '"/>';
+        if (i % 17 === 0) s += '<circle cx="' + (x + 6).toFixed(1) + '" cy="' + (y - 4).toFixed(1) + '" r="5" fill="#9E3B3B"/><circle cx="' + (x + 4.5).toFixed(1) + '" cy="' + (y - 5.5).toFixed(1) + '" r="1.6" fill="#F3ECDD" opacity=".6"/>';
+      }
+      return s;
+    }
+    // orden de encendido: 1 adelante-izq, 2 atrás-izq, 3 (rosa) atrás-der, 4 adelante-der
+    var velas = [ {x:206,y:392,h:150,c:"morada"}, {x:262,y:318,h:136,c:"morada"}, {x:380,y:318,h:136,c:"rosa"}, {x:436,y:392,h:150,c:"morada"} ];
+    function vela(v, i){
+      var w = 38, top = v.y - v.h;
+      return '<g class="vela apagada" data-i="' + i + '">' +
+        '<circle class="halo" cx="' + v.x + '" cy="' + (top - 26) + '" r="110" fill="url(#g-halo)"/>' +
+        '<rect x="' + (v.x - w/2) + '" y="' + top + '" width="' + w + '" height="' + v.h + '" rx="6" fill="url(#g-' + v.c + ')"/>' +
+        '<ellipse cx="' + v.x + '" cy="' + top + '" rx="' + (w/2) + '" ry="6" fill="' + (v.c === "rosa" ? "#F3C3D4" : "#9C80DC") + '"/>' +
+        '<path d="M' + (v.x + 6) + ' ' + top + ' q3 16 -1 30 q-2 8 3 12" stroke="' + (v.c === "rosa" ? "#F3C3D4" : "#9C80DC") + '" stroke-width="5" fill="none" stroke-linecap="round"/>' +
+        '<line x1="' + v.x + '" y1="' + top + '" x2="' + v.x + '" y2="' + (top - 12) + '" stroke="#1B1530" stroke-width="2.5" stroke-linecap="round"/>' +
+        '<path class="humo" d="M' + v.x + ' ' + (top - 14) + ' q-8 -14 2 -26 q8 -12 -2 -24" stroke="rgba(243,236,221,.45)" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<g class="llama"><g class="llama-in"><path d="M' + v.x + ' ' + (top - 58) + ' C' + (v.x + 13) + ' ' + (top - 38) + ' ' + (v.x + 15) + ' ' + (top - 20) + ' ' + v.x + ' ' + (top - 10) + ' C' + (v.x - 15) + ' ' + (top - 20) + ' ' + (v.x - 13) + ' ' + (top - 38) + ' ' + v.x + ' ' + (top - 58) + 'Z" fill="url(#g-llama)"/>' +
+        '<path d="M' + v.x + ' ' + (top - 34) + ' C' + (v.x + 5) + ' ' + (top - 26) + ' ' + (v.x + 5) + ' ' + (top - 18) + ' ' + v.x + ' ' + (top - 13) + ' C' + (v.x - 5) + ' ' + (top - 18) + ' ' + (v.x - 5) + ' ' + (top - 26) + ' ' + v.x + ' ' + (top - 34) + 'Z" fill="#FFFBEF"/></g></g>' +
+        '</g>';
+    }
+    svg.insertAdjacentHTML("beforeend", defs +
+      '<ellipse cx="' + cx + '" cy="' + (cy + 18) + '" rx="320" ry="110" fill="url(#g-mesa)"/>' +
+      '<ellipse cx="' + cx + '" cy="' + (cy + 10) + '" rx="' + (rx + 20) + '" ry="' + (ry + 14) + '" fill="#0B0818" opacity=".55"/>' +
+      '<g>' + hojas("atras") + '</g>' + vela(velas[1], 1) + vela(velas[2], 2) +
+      '<g>' + hojas("frente") + '</g>' + vela(velas[0], 0) + vela(velas[3], 3));
+    // reordenar para que el índice de encendido coincida con data-i
+    var gs = [].slice.call(svg.querySelectorAll(".vela")).sort(function(a, b){ return a.dataset.i - b.dataset.i; });
+    return gs;
+  }
+  var VELAS = corona();
+  var encendidas = ANTES ? 0 : DESPUES ? 4 : semanaDe(HOY);
+  function encender(n){ VELAS.forEach(function(g, i){ g.classList.toggle("apagada", i >= n); }); document.documentElement.style.setProperty("--luz", n); }
+  function apagarCon(n){ VELAS.forEach(function(g, i){ if (i >= n && !g.classList.contains("apagada")) { g.classList.add("apagada", "humeando"); setTimeout(function(){ g.classList.remove("humeando"); }, 2600); } }); document.documentElement.style.setProperty("--luz", n); }
+  var reducido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducido) encender(encendidas);
+  else {
+    // el recorrido completo: las cuatro velas se encienden y queda la luz de hoy
+    [0,1,2,3].forEach(function(i){ setTimeout(function(){ VELAS[i].classList.remove("apagada"); document.documentElement.style.setProperty("--luz", i + 1); }, 500 + i * 650); });
+    setTimeout(function(){ apagarCon(encendidas); }, 500 + 4 * 650 + 900);
+  }
+  $("#coronaTxt").textContent = ANTES ? "El domingo 29 de noviembre encendemos la primera vela"
+    : DESPUES ? "¡Feliz Navidad! El Señor ha venido"
+    : (encendidas === 1 ? "Primera" : encendidas === 2 ? "Segunda" : encendidas === 3 ? "Tercera" : "Cuarta") + " semana de Adviento";
+
+  /* ---------- estado de la portada ---------- */
+  var estado = $("#estado"), btnHoy = $("#btnHoy");
+  if (ANTES) {
+    var faltan = diasEntre(HOY, A.inicio);
+    estado.innerHTML = "<b>" + faltan + "</b><span>" + (faltan === 1 ? "día" : "días") + " para empezar. El primer video se abre el domingo 29 de noviembre.</span>";
+    btnHoy.textContent = "Conoce el camino";
+  } else if (DESPUES) {
+    estado.innerHTML = "<b>26</b><span>días de camino. Puedes volver a ver todos los videos.</span>";
+    btnHoy.textContent = "Ver los 26 días";
+  } else {
+    var dh = D[idxHoy];
+    estado.innerHTML = "<b>Día " + (idxHoy + 1) + "</b><span>de 26. Hoy: «" + dh.titulo + "»</span>";
+    btnHoy.textContent = "Ver el video de hoy";
+    btnHoy.addEventListener("click", function(ev){ ev.preventDefault(); abrir(idxHoy, true); });
+  }
+
+  /* ---------- camino ---------- */
+  var cont = $("#semanas"), botones = [], salas = {};
+  A.semanas.forEach(function(s, k){
+    var dias = D.map(function(d, i){ return {d:d, i:i}; }).filter(function(o){ return semanaDe(o.d.f) === s.n; });
+    var art = document.createElement("article");
+    art.className = "semana"; art.dataset.n = s.n;
+    var ini = dias[0].d.f, fin = dias[dias.length - 1].d.f;
+    art.innerHTML = '<div class="semana-cabeza"><span class="semana-num" aria-hidden="true">' + ROMANOS[k] + '</span>' +
+      '<h3>Semana ' + s.n + ': ' + s.nombre + '</h3>' +
+      '<p><span class="fechas">' + fechaCorta(ini) + ' al ' + fechaCorta(fin) + '.</span>' + s.texto + '</p></div><ol class="dias"></ol>';
+    var ol = art.querySelector(".dias");
+    dias.forEach(function(o){
+      var d = o.d, li = document.createElement("li"), b = document.createElement("button");
+      b.type = "button"; b.className = "dia"; b.dataset.i = o.i; b.id = "dia-" + d.f;
+      li.appendChild(b); ol.appendChild(li); botones[o.i] = b;
+      b.addEventListener("click", function(){ if (abierto(d)) abrir(o.i, false); });
+    });
+    var sala = document.createElement("div");
+    sala.className = "sala"; sala.hidden = true; sala.setAttribute("role", "region");
+    art.appendChild(sala); salas[s.n] = sala;
+    cont.appendChild(art);
+  });
+
+  function pintarDia(i){
+    var d = D[i], b = botones[i], ok = abierto(d), hoy = d.f === HOY, viv = !!vividos[d.f];
+    b.className = "dia" + (hoy ? " hoy" : "") + (ok ? "" : " cerrado") + (viv ? " vivido" : "");
+    b.setAttribute("aria-disabled", ok ? "false" : "true");
+    var est = !ok ? "Se abre el " + fechaCorta(d.f) : viv ? "✓ Vivido" : hoy ? "Hoy" : idVideo(d.video) ? "Ver video" : "Abrir";
+    var fecha = partes(d.f);
+    b.innerHTML = '<span class="dia-num">' + fecha.getUTCDate() + '</span>' +
+      '<span class="dia-sem"><i class="punto ' + d.color + '" aria-hidden="true"></i>' + DIAS_S[fecha.getUTCDay()] + '</span>' +
+      '<span class="dia-tit">' + d.titulo + '</span>' +
+      (d.ant ? '<span class="dia-ant">' + d.ant + '</span>' : '') +
+      '<span class="dia-ev">' + d.lects[d.lects.length - 1][1] + '</span>' +
+      '<span class="dia-estado">' + est + '</span>';
+    b.setAttribute("aria-label", "Día " + (i + 1) + ", " + fechaLarga(d.f) + ": " + d.titulo + ". " + est);
+  }
+  D.forEach(function(d, i){ pintarDia(i); });
+
+  function pintarProgreso(){
+    var n = D.filter(function(d){ return vividos[d.f]; }).length;
+    var vel = $("#velitas"); vel.innerHTML = "";
+    D.forEach(function(d){ var i = document.createElement("i"); if (vividos[d.f]) i.className = "si"; vel.appendChild(i); });
+    $("#progresoTxt").textContent = n + " de 26 días vividos";
+  }
+  pintarProgreso();
+
+  /* ---------- sala de cine ---------- */
+  var abiertoIdx = -1;
+  function htmlSala(i){
+    var d = D[i], id = idVideo(d.video), ok = abierto(d);
+    var pantalla;
+    if (id) {
+      pantalla = '<button class="poster" type="button" style="background-image:url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)" aria-label="Reproducir el video del día ' + (i + 1) + '"><span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>Ver el video, 3 min</span></button>';
+    } else {
+      pantalla = '<div class="espera"><div><svg viewBox="0 0 70 110" aria-hidden="true"><rect x="27" y="52" width="16" height="58" rx="3" fill="#6B4BB0"/><g class="vela"><g class="llama-in"><path d="M35 8 C44 22 46 36 35 46 C24 36 26 22 35 8Z" fill="url(#g-llama)"/><path d="M35 26 C39 32 39 38 35 42 C31 38 31 32 35 26Z" fill="#FFFBEF"/></g></g></svg>' +
+        '<b>' + (ok ? "El video se publica muy pronto" : "Este día se abre el " + fechaLarga(d.f)) + '</b>' +
+        '<p>Mientras tanto, lee el Evangelio del día y vive el propósito.</p></div></div>';
+    }
+    var lects = d.lects.map(function(l){ return '<dt>' + l[0] + '</dt><dd>' + l[1] + '</dd>'; }).join("");
+    var leer = d.f === "2026-12-12"
+      ? '<p class="nota-lect">En el Perú se celebra como fiesta, con lecturas propias del calendario litúrgico peruano.</p>'
+      : '<a class="leer" href="https://www.ewtn.com/es/catolicismo/lecturas/' + d.f + '" target="_blank" rel="noopener">Leer las lecturas completas</a>';
+    var viv = !!vividos[d.f];
+    return '<div class="pantalla">' + pantalla + '<img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209"></div>' +
+      '<div class="sala-info"><div class="info-a">' +
+        '<p class="sala-meta">Día ' + (i + 1) + ' de 26, ' + fechaLarga(d.f) + '</p>' +
+        '<h3>' + d.titulo + '</h3>' +
+        '<p class="sala-cel"><i class="punto ' + d.color + '" aria-hidden="true"></i>' + d.cel + (d.rango && d.rango !== "Feria" && d.rango !== "Domingo" ? ', ' + d.rango.toLowerCase() : '') + (d.ant ? '. Antífona: ' + d.ant : '') + '</p>' +
+        '<dl class="lecturas">' + lects + '</dl>' + leer + '</div><div class="info-b">' +
+        '<div class="caja"><h4><small>Para aprender</small>' + d.aprende.t + '</h4><p>' + d.aprende.p + '</p></div>' +
+        '<div class="caja vive"><h4><small>Para vivir hoy</small>Tu propósito</h4><p>' + d.vivir + '</p></div>' +
+        '<div class="sala-acciones">' +
+          '<button class="btn vivir" type="button" aria-pressed="' + viv + '">' + (viv ? "✓ Lo viví" : "Marcar como vivido") + '</button>' +
+          '<a class="btn wa" target="_blank" rel="noopener" href="' + enlaceWa(i) + '">Compartir este día</a>' +
+        '</div></div>' +
+        '<div class="sala-nav"><button type="button" class="ant"' + (i === 0 ? " disabled" : "") + '>Día anterior</button><button type="button" class="cerrar">Cerrar</button><button type="button" class="sig"' + (i === N - 1 || !abierto(D[i + 1]) ? " disabled" : "") + '>Día siguiente</button></div>' +
+      '</div>';
+  }
+  function enlaceWa(i){
+    var d = D[i];
+    var txt = "Adviento día a día, día " + (i + 1) + " de 26 (" + fechaLarga(d.f) + "): «" + d.titulo + "». Evangelio: " + d.lects[d.lects.length - 1][1] + ". Mira el video de 3 minutos y vive el Adviento con Divina Data: " + URL_PAGINA + "#dia-" + d.f;
+    return "https://wa.me/?text=" + encodeURIComponent(txt);
+  }
+  function cerrar(){
+    if (abiertoIdx < 0) return;
+    var sem = semanaDe(D[abiertoIdx].f), s = salas[sem];
+    s.hidden = true; s.innerHTML = "";
+    botones[abiertoIdx].classList.remove("abierto-ahora");
+    botones[abiertoIdx].setAttribute("aria-expanded", "false");
+    var b = botones[abiertoIdx]; abiertoIdx = -1; b.focus({preventScroll:true}); avisarAltura();
+  }
+  function abrir(i, desplazar){
+    var d = D[i]; if (!abierto(d)) return;
+    if (abiertoIdx === i) { cerrar(); return; }
+    cerrar();
+    var s = salas[semanaDe(d.f)];
+    s.innerHTML = htmlSala(i); s.hidden = false; s.setAttribute("aria-label", "Día " + (i + 1) + ": " + d.titulo);
+    s.classList.remove("entra"); void s.offsetWidth; s.classList.add("entra");
+    abiertoIdx = i;
+    var li = botones[i].parentNode, fila = li.parentNode;
+    if (fila.scrollWidth > fila.clientWidth) fila.scrollLeft = Math.max(0, li.offsetLeft - fila.offsetLeft - 18);
+    botones[i].classList.add("abierto-ahora"); botones[i].setAttribute("aria-expanded", "true");
+    var p = $(".poster", s);
+    if (p) p.addEventListener("click", function(){
+      var id = idVideo(d.video), f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1&modestbranding=1";
+      f.title = "Video del día " + (i + 1) + ": " + d.titulo;
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+      p.replaceWith(f);
+    });
+    $(".vivir", s).addEventListener("click", function(){
+      if (vividos[d.f]) delete vividos[d.f]; else vividos[d.f] = 1;
+      guardar(); var v = !!vividos[d.f];
+      this.setAttribute("aria-pressed", v); this.textContent = v ? "✓ Lo viví" : "Marcar como vivido";
+      pintarDia(i); botones[i].classList.add("abierto-ahora"); pintarProgreso();
+    });
+    $(".ant", s).addEventListener("click", function(){ if (i > 0) abrir(i - 1, true); });
+    $(".sig", s).addEventListener("click", function(){ if (i < N - 1) abrir(i + 1, true); });
+    $(".cerrar", s).addEventListener("click", cerrar);
+    if (history.replaceState) try { history.replaceState(null, "", "#dia-" + d.f); } catch(e){}
+    avisarAltura();
+    if (desplazar !== false) setTimeout(function(){ s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "start"}); }, 40);
+    else setTimeout(function(){ var r = s.getBoundingClientRect(); if (r.bottom > innerHeight || r.top < 0) s.scrollIntoView({behavior: reducido ? "auto" : "smooth", block: "nearest"}); }, 40);
+  }
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") cerrar(); });
+
+  $("#waPagina").href = "https://wa.me/?text=" + encodeURIComponent("Vivamos juntos el Adviento día a día: un video de 3 minutos cada día, del 29 de noviembre al 24 de diciembre, con el Evangelio y un propósito. Divina Data: " + URL_PAGINA);
+
+  /* abrir un día desde el enlace (#dia-2026-12-03) */
+  var m = location.hash.match(/^#dia-(\d{4}-\d{2}-\d{2})$/);
+  if (m) { var k = D.findIndex(function(d){ return d.f === m[1]; }); if (k >= 0 && abierto(D[k])) setTimeout(function(){ abrir(k, true); }, 300); }
+
+  /* altura para la página de Divina Data (iframe) */
+  function avisarAltura(){ if (!EN_MARCO) return; try { parent.postMessage({tipo:"divina-altura", alto: document.documentElement.scrollHeight}, "*"); } catch(e){} }
+  if (EN_MARCO) {
+    window.addEventListener("load", avisarAltura); window.addEventListener("resize", avisarAltura);
+    if ("ResizeObserver" in window) new ResizeObserver(avisarAltura).observe(document.body);
+    setTimeout(avisarAltura, 800);
+  }
+})();
+</script>
+</body>
+</html>
