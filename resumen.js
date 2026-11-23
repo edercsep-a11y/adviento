@@ -30,7 +30,7 @@
       semanaNombre: (A.semanas[sem - 1] || {}).nombre || "", vela: CUAL_VELA[sem] || "",
       ant: E && E.ant && E.ant[d.f] ? { t: d.ant, texto: E.ant[d.f] } : null,
       previas: previas, evangelio: ev, evangelista: EVANG[libro] || "",
-      aprende: d.aprende, padre: r.padre || e.padre || null, santo: e.santo || null,
+      aprende: d.aprende, padre: r.padre || e.padre || null, lectura: (E && E.patristica && E.patristica[d.f]) || null, santo: e.santo || null,
       med: r.med || "", preg: r.preg || [], preces: r.preces || [], oracion: r.oracion || "",
       vivir: d.vivir, video: d.video || "", colorNombre: NOMBRE_COLOR[d.color] || mayus(d.color),
       lecturasUrl: d.f === "2026-12-12" ? "" : "https://www.ewtn.com/es/catolicismo/lecturas/" + d.f,
@@ -55,7 +55,9 @@
       '<section class="r-bloque"><h3>Escuchamos la Palabra</h3><ul class="r-lista">' + palabra + '</ul></section>' +
       '<section class="r-bloque"><h3>Acogimos el Evangelio</h3><p class="r-cita-biblica">' + esc(x.evangelio.cita) + (x.evangelista ? ', según san ' + esc(x.evangelista) : '') + '</p><p>' + esc(x.evangelio.res) + '</p></section>' +
       '<section class="r-bloque"><h3>La liturgia nos enseña</h3><p class="r-sub">' + esc(x.aprende.t) + '</p><p>' + esc(x.aprende.p) + '</p></section>' +
-      (x.padre ? '<section class="r-bloque"><h3>La voz de los Padres</h3>' + voz(x.padre) + '</section>' : '') +
+      (x.lectura ? '<section class="r-bloque r-padres"><h3>Lectura de los Padres</h3><p class="r-enc">' + esc(x.lectura.enc) + '</p><p class="r-sub">' + esc(x.lectura.tema) + '</p><p class="r-texto">' + esc(x.lectura.texto) + '</p>' +
+        '<blockquote class="r-cita">' + (x.lectura.clave.cita ? '«' + esc(x.lectura.clave.t) + '»' : esc(x.lectura.clave.t)) + '</blockquote>' +
+        '<p class="r-vida"><b>Para nuestra vida.</b> ' + esc(x.lectura.vida) + '</p></section>' : (x.padre ? '<section class="r-bloque"><h3>La voz de los Padres</h3>' + voz(x.padre) + '</section>' : '')) +
       (x.santo ? '<section class="r-bloque"><h3>Palabra de los santos</h3>' + santo(x.santo) + '</section>' : '') +
       '<section class="r-bloque"><h3>Para seguir meditando</h3><ol class="r-preg" type="I">' + x.preg.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join("") + '</ol></section>' +
       (x.ant ? '<section class="r-bloque"><h3>Antífona «' + esc(x.ant.t) + '»</h3><p class="r-antifona">' + esc(x.ant.texto) + '</p></section>' : '') +

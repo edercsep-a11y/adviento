@@ -165,6 +165,9 @@ svg{display:block}
 .e-autor cite{display:block;font-family:var(--display);font-style:italic;font-size:1.08em;color:var(--cera-3)}
 .e-resp{margin:1.1em 0 0;font-family:var(--display);font-weight:600;font-size:clamp(28px,3vw,56px);line-height:1.1}
 .e-amen{font-family:var(--display);font-style:italic;font-size:clamp(24px,2.4vw,44px);color:var(--cera-2);margin:.8em 0 0}
+.e-tema{font-family:var(--display);font-weight:600;font-size:clamp(30px,3vw,56px);line-height:1.05;margin:0 0 .5em}
+.e-lectura{font-family:var(--display);font-weight:500;font-size:clamp(22px,2.05vw,39px);line-height:1.32;margin:0;max-width:52ch;text-wrap:pretty}
+.e-lectura.versal::first-letter{font-size:3.6em}
 .versal::first-letter{float:left;font-family:var(--display);font-weight:600;color:var(--rubrica);font-size:3.3em;line-height:.82;margin:.06em .1em 0 0}
 .centro{text-align:center}
 .centro .e-grande,.centro .e-medio,.centro .e-texto{margin-left:auto;margin-right:auto}
@@ -252,7 +255,7 @@ svg{display:block}
 .controles .ico{width:56px;height:56px;border-radius:12px}
 .controles .ico.sig{background:var(--vela);color:var(--tinta);border-color:transparent}
 .controles .ico.sig:hover{background:var(--vela-2)}
-.tv.quieto .controles,.tv.quieto .tv-der .ico{opacity:.12}
+.tv.quieto .controles,.tv.quieto .tv-der .ico{opacity:.4}
 .tv.quieto{cursor:none}
 @media (max-width:760px){
   .escaleta .nombre,.tercio .t-paso span,.mosca p,.reloj{display:none}
@@ -275,7 +278,8 @@ svg{display:block}
 .v-cab .ico{margin-left:auto;align-self:flex-start}
 .v-cuerpo{padding:8px clamp(18px,3.4vw,48px) 26px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
 .v-acciones{position:sticky;bottom:0;display:flex;flex-wrap:wrap;gap:10px;padding:16px clamp(18px,3.4vw,48px) 20px;background:var(--noche-2);border-top:1px solid var(--filete)}
-.v-acciones .btn{flex:1 1 220px}
+.v-acciones .btn{flex:1 1 200px}
+.v-acciones .siguiente{flex:1 1 100%}
 @media (max-width:820px){.v-cuerpo{grid-template-columns:1fr}}
 /* bloques del resumen: secciones de una hoja, no tarjetas */
 .r-bloque{padding:18px 0 16px;border-top:1px solid var(--filete)}
@@ -296,6 +300,11 @@ svg{display:block}
 .r-cita{margin:0 0 8px}
 .r-firma{font-size:15px;color:var(--cera)}
 .r-firma cite{display:block;font-family:var(--display);font-style:italic;font-size:17px;color:var(--cera-3)}
+.r-padres{grid-column:1/-1}
+.r-enc{font-family:var(--display);font-style:italic;color:var(--cera-3);font-size:18px;margin:0 0 4px}
+.r-texto{font-family:var(--display);font-size:21px;line-height:1.38;max-width:70ch}
+.r-padres .r-cita{margin:10px 0;padding-left:16px;border-left:2px solid var(--rubrica)}
+.r-vida b{color:var(--vela)}
 .r-preg{margin:0;padding-left:1.4em;display:grid;gap:6px;list-style:upper-roman}
 .r-preg li::marker{color:var(--rubrica);font-family:var(--display);font-weight:600}
 </style>
@@ -384,7 +393,8 @@ svg{display:block}
     </header>
     <div class="v-cuerpo" id="vivCuerpo"></div>
     <footer class="v-acciones">
-      <a class="btn vela" id="vivPdf" href="#" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar el día en PDF</a>
+      <button class="btn vela siguiente" type="button" id="vivSig" hidden></button>
+      <a class="btn linea" id="vivPdf" href="#" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar el día en PDF</a>
       <a class="btn wa" id="vivWa" href="#" target="_blank" rel="noopener">Compartir por WhatsApp</a>
       <button class="btn linea" type="button" id="vivSala">Volver a la sala</button>
     </footer>

@@ -202,6 +202,7 @@
     return m ? m[1] : (/^[A-Za-z0-9_-]{11}$/.test(url) ? url : "");
   }
   function rub(t, extra){ return '<p class="rubrica e-rub"' + (extra || '') + '>' + t + '</p>'; }
+  function enFrase(n){ return String(n || "").replace(/^San /, "san ").replace(/^Santa /, "santa ").replace(/^Santo /, "santo "); }
   function autor(nombre, fuente){ return '<p class="e-autor">' + esc(nombre) + '<cite>' + esc(fuente) + '</cite></p>'; }
   var VELA_TXT = { 1: "la primera vela, morada", 2: "la segunda vela, morada", 3: "la vela rosa de la alegría", 4: "la cuarta vela" };
 
@@ -261,7 +262,15 @@
     add(2, "La liturgia nos enseña", '<div>' + rub('La liturgia nos enseña') +
       '<h2 class="e-cita">' + esc(x.aprende.t) + '</h2>' +
       '<p class="e-medio" style="margin-top:.55em">' + esc(x.aprende.p) + '</p></div>');
-    if (x.padre) add(2, "Los Padres de la Iglesia", '<div>' + rub('De los Padres de la Iglesia') +
+    if (x.lectura) {
+      add(2, "Lectura de los Padres", '<div>' + rub(esc(x.lectura.enc)) +
+        '<h2 class="e-tema">' + esc(x.lectura.tema) + '</h2>' +
+        '<p class="e-lectura versal">' + esc(x.lectura.texto) + '</p></div>', { tipo: "lectura" });
+      add(2, "Para nuestra vida", '<div>' + rub(x.lectura.clave.cita ? 'Lo dice ' + esc(x.padre ? enFrase(x.padre.q) : "el Padre") : 'La enseñanza de ' + esc(x.padre ? enFrase(x.padre.q) : "los Padres")) +
+        '<p class="e-grande">' + (x.lectura.clave.cita ? '«' + esc(x.lectura.clave.t) + '»' : esc(x.lectura.clave.t)) + '</p>' +
+        (x.padre ? autor(x.padre.q, x.padre.f) : '') +
+        '<p class="rubrica e-rub" style="margin-top:1.6em">Para nuestra vida</p><p class="e-medio">' + esc(x.lectura.vida) + '</p></div>');
+    } else if (x.padre) add(2, "Los Padres de la Iglesia", '<div>' + rub('De los Padres de la Iglesia') +
       '<p class="e-grande">' + esc(x.padre.d) + '</p>' + autor(x.padre.q, x.padre.f) + '</div>');
 
     // IV. Meditamos
@@ -437,11 +446,23 @@
     var cuerpo = $("#vivCuerpo"); cuerpo.innerHTML = html;
     var pdf = $("#vivPdf"); pdf.href = X.pdf; pdf.setAttribute("download", X.pdfNombre);
     $("#vivWa").href = enlaceWa(X);
+    var sig = $("#vivSig"), j = idx + 1;
+    if (j < D.length) {
+      sig.hidden = false;
+      sig.innerHTML = abierto(D[j]) ? 'Pasar al día ' + (j + 1) + ': ' + esc(D[j].titulo) : 'El día ' + (j + 1) + ' se abre el ' + esc(DIA.fechaLarga(D[j].f));
+      sig.disabled = !abierto(D[j]);
+    } else { sig.hidden = true; }
     v.hidden = false; v.classList.remove("abre"); void v.offsetWidth; v.classList.add("abre");
     $(".vivido-caja").scrollTop = 0;
     setTimeout(function(){ $("#vivCerrar").focus(); }, 50);
   }
   function cerrarVivido(){ $("#vVivido").hidden = true; }
+  function diaSiguiente(){
+    var j = idx + 1;
+    if (j >= D.length || !abierto(D[j])) return;
+    cerrarVivido(); abrirDia(j, 0);
+  }
+  $("#vivSig").addEventListener("click", diaSiguiente);
   $("#vivCerrar").addEventListener("click", cerrarVivido);
   $("#vivSala").addEventListener("click", function(){ cerrarVivido(); salirTv(); });
   $("#vVivido").addEventListener("click", function(e){ if (e.target.id === "vVivido") cerrarVivido(); });
@@ -452,7 +473,11 @@
   $("#bSalir").addEventListener("click", salirTv);
   $("#bPantalla").addEventListener("click", pantallaCompleta);
   document.addEventListener("keydown", function(e){
-    if (!$("#vVivido").hidden) { if (e.key === "Escape") cerrarVivido(); return; }
+    if (!$("#vVivido").hidden) {
+      if (e.key === "Escape") cerrarVivido();
+      else if ((e.key === "ArrowRight" || e.key === "PageDown") && !$("#vivSig").hidden && !$("#vivSig").disabled) { e.preventDefault(); diaSiguiente(); }
+      return;
+    }
     if ($("#vTv").hidden) return;
     var tag = (e.target.tagName || "").toLowerCase();
     if (tag === "input" || tag === "textarea") return;
@@ -463,6 +488,7 @@
     else if (k === "Home") { e.preventDefault(); ir(0); }
     else if (k === "End") { e.preventDefault(); ir(escenas.length - 1); }
     else if (k === "f" || k === "F") { pantallaCompleta(); }
+    else if (k === "Escape" && !document.fullscreenElement) { salirTv(); }
   });
   // deslizar en celulares
   var x0 = null, y0 = null;
