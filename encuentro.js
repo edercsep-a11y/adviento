@@ -138,30 +138,33 @@
     pintarSala();
     salaLista = true;
   }
-  function estadoTile(d){
-    if (vividos[d.f]) return { cls: "vivido", ico: ICO.hecho, lbl: "Vivido" };
-    if (!abierto(d)) return { cls: "cerrado", ico: ICO.candado, lbl: "Cerrado hasta el " + DIA.fechaLarga(d.f) };
-    if (d.f > HOY) return { cls: "", ico: ICO.abierto, lbl: "Abierto para revisión" };
-    return { cls: "", ico: "", lbl: "Abierto" };
+  var ROM = ["I","II","III","IV","V","VI"];
+  var DS = ["dom","lun","mar","mié","jue","vie","sáb"];
+  var ORD = ["Primera","Segunda","Tercera","Cuarta"];
+  function diaSemana(iso){ var a = iso.split("-").map(Number); return DS[new Date(Date.UTC(a[0], a[1]-1, a[2], 12)).getUTCDay()]; }
+  function estadoFila(d){
+    if (vividos[d.f]) return { cls: "vivido", html: ICO.hecho + "Vivido", lbl: "Vivido" };
+    if (!abierto(d)) return { cls: "cerrado", html: ICO.candado, lbl: "Cerrado hasta el " + DIA.fechaLarga(d.f) };
+    if (d.f === HOY) return { cls: "hoy", html: "Hoy", lbl: "Hoy" };
+    if (d.f > HOY) return { cls: "", html: ICO.abierto, lbl: "Abierto para revisión" };
+    return { cls: "", html: "", lbl: "Abierto" };
   }
   function pintarSala(){
     var cont = $("#semanas"); cont.innerHTML = "";
-    A.semanas.forEach(function(s){
+    A.semanas.forEach(function(s, k){
       var items = D.map(function(d, i){ return { d: d, i: i }; }).filter(function(o){ return DIA.semanaDe(o.d.f) === s.n; });
       var sec = document.createElement("section"); sec.className = "semana";
-      sec.innerHTML = '<h3>Semana ' + s.n + ': ' + esc(s.nombre) + '</h3><p>' + esc(s.texto) + '</p><ol class="rejilla"></ol>';
+      sec.innerHTML = '<h2><span class="num">' + ROM[k] + '</span>' + ORD[k] + ' semana: ' + esc(s.nombre) + '</h2><p>' + esc(s.texto) + '</p><ol class="ordo"></ol>';
       var ol = sec.querySelector("ol");
       items.forEach(function(o){
-        var d = o.d, st = estadoTile(d), hoy = d.f === HOY;
+        var d = o.d, st = estadoFila(d), dd = +d.f.slice(8, 10);
         var li = document.createElement("li"), b = document.createElement("button");
-        b.type = "button";
-        b.className = "tile " + st.cls + (hoy ? " hoy" : "");
+        b.type = "button"; b.className = "fila " + st.cls;
         b.style.setProperty("--color-dia", colorDe(d));
         b.setAttribute("aria-label", "Día " + (o.i + 1) + ", " + DIA.fechaLarga(d.f) + ": " + d.titulo + ". " + st.lbl);
-        b.innerHTML = '<span class="franja" aria-hidden="true"></span>' +
-          (st.ico ? '<span class="estado" aria-hidden="true">' + st.ico + '</span>' : '') +
-          (hoy ? '<span class="hoy-pill">Hoy</span>' : '') +
-          '<span class="num">' + (o.i + 1) + '</span><span class="fec">' + esc(DIA.fechaLarga(d.f)) + '</span><span class="tit">' + esc(d.titulo) + '</span>';
+        b.innerHTML = '<span class="f-fecha" aria-hidden="true"><b>' + dd + '</b><small>' + diaSemana(d.f) + '</small></span>' +
+          '<span class="f-txt"><span class="f-cel">' + esc(d.cel) + '</span><span class="f-tit">' + esc(d.titulo) + '</span></span>' +
+          '<span class="f-estado" aria-hidden="true">' + st.html + '</span>';
         b.addEventListener("click", function(){
           if (abierto(d)) abrirDia(o.i, 0);
           else toast("Este día se abre el " + DIA.fechaLarga(d.f) + " a las 12:00 a. m.");
@@ -170,14 +173,13 @@
       });
       cont.appendChild(sec);
     });
-    // destacado: hoy, o el primer día si aún no empieza
     var iHoy = D.findIndex(function(d){ return d.f === HOY; });
-    var antes = HOY < A.inicio, despues = HOY > A.fin;
+    var antes = HOY < A.inicio;
     var i = iHoy >= 0 ? iHoy : antes ? 0 : D.length - 1, d = D[i];
-    var que = iHoy >= 0 ? "Hoy, día " + (i + 1) + " de 26" : antes ? "Empezamos el domingo 29 de noviembre" : "Volver a vivir el último día";
+    var que = iHoy >= 0 ? "Esta noche, a las 10:00 p. m." : antes ? "Empezamos el domingo 29 de noviembre" : "Volver a vivir el último día";
     var puede = abierto(d);
-    $("#destacado").innerHTML = '<p class="que">' + que + '</p><h2>' + esc(d.titulo) + '</h2><p class="cel">' + esc(DIA.mayus(DIA.fechaLarga(d.f))) + ' · ' + esc(d.cel) + '</p>' +
-      '<div class="acciones">' + (puede ? '<button class="btn luz" type="button" id="bEmpezar">Empezar el encuentro</button>' : '<span class="btn linea" aria-disabled="true">' + ICO.candado.replace('<svg', '<svg width="20" height="20"') + 'Se abre a las 12:00 a. m.</span>') +
+    $("#destacado").innerHTML = '<p class="rubrica">' + que + '</p><h2>' + esc(d.titulo) + '</h2><p class="cel">' + esc(DIA.mayus(DIA.fechaLarga(d.f))) + ', ' + esc(d.cel) + '</p>' +
+      '<div class="acciones">' + (puede ? '<button class="btn vela" type="button" id="bEmpezar">Empezar el encuentro</button>' : '<span class="btn linea" aria-disabled="true">Se abre a las 12:00 a. m.</span>') +
       '<a class="btn linea" href="' + esc(A.grupo) + '" target="_blank" rel="noopener">Grupo de WhatsApp</a></div>';
     var be = $("#bEmpezar"); if (be) be.addEventListener("click", function(){ abrirDia(i, 0); });
   }
@@ -199,114 +201,108 @@
     var m = String(url).match(/(?:youtu\.be\/|v=|embed\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/);
     return m ? m[1] : (/^[A-Za-z0-9_-]{11}$/.test(url) ? url : "");
   }
-  function rv(html, n){ return '<div class="rv" style="--d:' + (n || 0) + '">' + html + '</div>'; }
+  function rub(t, extra){ return '<p class="rubrica e-rub"' + (extra || '') + '>' + t + '</p>'; }
+  function autor(nombre, fuente){ return '<p class="e-autor">' + esc(nombre) + '<cite>' + esc(fuente) + '</cite></p>'; }
+  var VELA_TXT = { 1: "la primera vela, morada", 2: "la segunda vela, morada", 3: "la vela rosa de la alegría", 4: "la cuarta vela" };
 
   function construir(x){
     var L = [];
     function add(paso, lbl, html, extra){ L.push(Object.assign({ paso: paso, lbl: lbl, html: html }, extra || {})); }
     function tarjetaPaso(p){
-      add(p, "Paso " + (p + 1) + " de 6 · " + PASOS_TXT[p].split(",")[0].replace(/\.$/, ""), '<div class="paso-card">' + rv('<span class="paso-num" aria-hidden="true">' + (p + 1) + '</span>') +
-        '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Paso ' + (p + 1) + ' de 6</p>', 1) + rv('<h2 class="t-titulo">' + PASOS[p] + '</h2>', 2) + rv('<p class="t-texto">' + PASOS_TXT[p] + '</p>', 3) + '</div></div>', { tipo: "paso" });
+      add(p, PASOS_TXT[p].split(",")[0].replace(/\.$/, ""), '<div class="paso"><span class="paso-num" aria-hidden="true">' + ROM[p] + '</span>' +
+        '<div><p class="rubrica e-rub">Paso ' + (p + 1) + ' de 6</p><h2 class="e-titulo">' + PASOS[p] + '</h2><p class="e-texto">' + PASOS_TXT[p] + '</p></div></div>', { tipo: "paso" });
     }
     // portada
-    add(-1, "Portada", '<div class="portada-dia"><div>' +
-      rv('<p class="t-eyebrow">' + ICO.llama + 'Día ' + x.n + ' de 26 · ' + esc(DIA.mayus(x.fecha)) + '</p>') +
-      rv('<h1 class="t-titulo">' + esc(x.titulo) + '</h1>', 1) +
-      rv('<p class="cel">' + esc(x.cel) + '</p>', 2) +
-      rv('<div class="chips"><span class="chip"><i></i>Color litúrgico: ' + esc(x.colorNombre) + '</span><span class="chip">Semana ' + x.semana + ': ' + esc(x.semanaNombre) + '</span></div>', 3) +
-      rv('<p class="ayuda-teclas">Quien guía avanza con <kbd>→</kbd> o <kbd>Espacio</kbd>, vuelve con <kbd>←</kbd> y pone pantalla completa con <kbd>F</kbd>.</p>', 4) +
-      '</div>' + rv(coronaHTML(), 2) + '</div>', { tipo: "portada" });
+    add(-1, "Portada", '<div class="portada"><div>' +
+      rub(esc(DIA.mayus(x.fecha)) + ' de 2026') +
+      '<h1 class="e-titulo">' + esc(x.titulo) + '</h1>' +
+      '<p class="cel">' + esc(x.cel) + '</p>' +
+      '<p class="datos"><i aria-hidden="true"></i>Color litúrgico ' + esc(x.colorNombre.toLowerCase()) + '. ' + ORD[x.semana - 1] + ' semana: ' + esc(x.semanaNombre) + '.</p>' +
+      '<p class="teclas">Quien guía avanza con <kbd>→</kbd> o <kbd>Espacio</kbd>, vuelve con <kbd>←</kbd> y pone pantalla completa con <kbd>F</kbd>.</p>' +
+      '</div>' + coronaHTML() + '</div>', { tipo: "portada" });
 
-    // 1. Preparamos el corazón
+    // I. Preparamos el corazón
     tarjetaPaso(0);
-    add(0, "Encendemos la vela", '<div class="dos t-centro-m"><div>' +
-      rv('<p class="t-eyebrow">' + ICO.llama + 'Encendemos ' + esc(x.vela || "la vela") + '</p>') +
-      rv('<p class="t-grande">Cristo es la luz que viene a nuestra noche.</p>', 1) +
-      rv('<p class="t-texto">Encendemos en casa ' + esc(x.vela || "una vela") + ' de la corona' + (x.semana > 1 ? ', junto con las de las semanas anteriores' : '') + '. Si no tienes corona, basta una vela.</p>', 2) +
-      rv('<button class="btn luz toca" type="button" data-accion="encender">' + ICO.llama.replace('<svg', '<svg width="20" height="20"') + 'Encender la vela</button>', 3) +
-      '</div>' + rv(coronaHTML(), 1) + '</div>', { tipo: "vela" });
-    add(0, "Señal de la cruz", '<div class="t-centro">' +
-      rv('<svg viewBox="0 0 24 60" width="40" height="100" style="margin:0 auto 1.2em" aria-hidden="true"><rect x="10" y="0" width="4" height="60" rx="2" fill="#F2B45A"/><rect x="0" y="16" width="24" height="4" rx="2" fill="#F2B45A"/></svg>') +
-      rv('<p class="t-grande">' + esc(E.signoCruz) + '</p>', 1) + '</div>');
-    add(0, "Ven, Señor Jesús", '<div class="t-centro">' +
-      rv('<p class="t-eyebrow" style="justify-content:center">' + ICO.llama + 'Pedimos juntos</p>') +
-      rv('<p class="t-titulo">«' + esc(E.invocacion) + '»</p>', 1) +
-      rv('<p class="t-texto">Maranatha: así rezaban los primeros cristianos esperando al Señor.</p>', 2) + '</div>');
-    if (x.ant) add(0, "Antífona " + x.ant.t, '<div>' +
-      rv('<p class="t-eyebrow">' + ICO.llama + 'La Iglesia canta hoy en Vísperas</p>') +
-      rv('<p class="t-grande">' + esc(x.ant.texto) + '</p>', 1) + '</div>');
+    add(0, "Encendemos la vela", '<div class="dos"><div>' +
+      rub('Se enciende ' + esc(VELA_TXT[x.semana] || "la vela") + (x.semana > 1 ? ', con las de las semanas anteriores' : '') + '.') +
+      '<p class="e-grande">Cristo es la luz que viene a nuestra noche.</p>' +
+      '<p class="e-texto">Si en casa no tienes corona, basta una vela encendida.</p>' +
+      '<button class="btn vela" type="button" data-accion="encender" style="margin-top:1.3em">Encender la vela</button>' +
+      '</div>' + coronaHTML() + '</div>', { tipo: "vela" });
+    add(0, "Señal de la cruz", '<div class="centro">' +
+      '<svg class="cruz" viewBox="0 0 24 60" aria-hidden="true"><rect x="10" y="0" width="4" height="60" rx="1" fill="currentColor"/><rect x="0" y="16" width="24" height="4" rx="1" fill="currentColor"/></svg>' +
+      rub('Todos hacen la señal de la cruz.') +
+      '<p class="e-grande">' + esc(E.signoCruz) + '</p></div>');
+    add(0, "Ven, Señor Jesús", '<div class="centro">' + rub('Todos dicen juntos:') +
+      '<p class="e-titulo">' + esc(E.invocacion) + '.</p>' +
+      '<p class="e-texto">Maranatha. Así rezaban los primeros cristianos mientras esperaban al Señor.</p></div>');
+    if (x.ant) add(0, "Antífona «" + x.ant.t + "»", '<div>' + rub('Antífona que la Iglesia canta hoy en Vísperas') +
+      '<p class="e-grande">' + esc(x.ant.texto) + '</p></div>');
 
-    // 2. Escuchamos la Palabra
+    // II. Escuchamos la Palabra
     tarjetaPaso(1);
     x.previas.forEach(function(l){
-      add(1, l.etiqueta + " · " + l.cita, '<div>' +
-        rv('<p class="t-eyebrow">' + ICO.libro + esc(l.etiqueta) + '</p>') +
-        rv('<p class="t-cita">' + esc(l.cita) + '<small>Proclamamos el texto en voz alta desde la Biblia.</small></p>', 1) +
-        rv('<p class="t-medio" style="margin-top:.7em">' + esc(l.res) + '</p>', 2) +
-        (x.lecturasUrl ? rv('<a class="enlace-lect" href="' + x.lecturasUrl + '" target="_blank" rel="noopener">' + ICO.libro + 'Leer las lecturas completas del día</a>', 3) : '') + '</div>');
+      add(1, l.etiqueta + ": " + l.cita, '<div>' + rub(esc(l.etiqueta)) +
+        '<p class="e-cita">' + esc(l.cita) + '</p><span class="e-nota">Se proclama el texto en voz alta desde la Biblia.</span>' +
+        '<p class="e-medio">' + esc(l.res) + '</p>' +
+        (x.lecturasUrl ? '<a class="enlace-lect" href="' + x.lecturasUrl + '" target="_blank" rel="noopener">Leer las lecturas completas del día</a>' : '') + '</div>');
     });
 
-    // 3. Acogemos el Evangelio
+    // III. Acogemos el Evangelio
     tarjetaPaso(2);
-    add(2, "Evangelio · " + x.evangelio.cita, '<div>' +
-      rv('<p class="t-eyebrow">' + ICO.libro + 'Lectura del santo Evangelio' + (x.evangelista ? ' según san ' + esc(x.evangelista) : '') + '</p>') +
-      rv('<p class="t-cita">' + esc(x.evangelio.cita) + '<small>Nos ponemos de pie para escuchar a Jesús.</small></p>', 1) +
-      rv('<p class="t-medio" style="margin-top:.7em">' + esc(x.evangelio.res) + '</p>', 2) +
-      rv('<p class="amen">Palabra del Señor. Gloria a ti, Señor Jesús.</p>', 3) + '</div>');
+    add(2, "Evangelio: " + x.evangelio.cita, '<div>' + rub('Todos de pie. Lectura del santo Evangelio' + (x.evangelista ? ' según san ' + esc(x.evangelista) : '') + '.') +
+      '<p class="e-cita">' + esc(x.evangelio.cita) + '</p><span class="e-nota">Se proclama el Evangelio del día.</span>' +
+      '<p class="e-medio">' + esc(x.evangelio.res) + '</p>' +
+      '<p class="e-amen">Palabra del Señor. <span class="R" aria-hidden="true">R</span>Gloria a ti, Señor Jesús.</p></div>');
     var vid = idVideo(x.video);
-    add(2, "Video del día", '<div>' + rv('<div class="video-marco' + (vid ? '' : ' video-vacio') + '">' +
+    add(2, "Video del día", '<div class="video-marco' + (vid ? '' : ' video-vacio') + '">' +
       (vid ? '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '?rel=0&modestbranding=1" title="Video del día ' + x.n + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>'
-           : '<div>' + ICO.play + '<p class="t-medio t-centro">El video de 3 minutos de hoy</p><p class="t-texto t-centro">Aparecerá aquí en cuanto se publique.</p></div>') + '</div>') + '</div>', { tipo: "video" });
-    add(2, "La liturgia nos enseña", '<div>' +
-      rv('<p class="t-eyebrow">' + ICO.llama + 'La liturgia nos enseña</p>') +
-      rv('<h2 class="t-cita">' + esc(x.aprende.t) + '</h2>', 1) +
-      rv('<p class="t-medio" style="margin-top:.5em">' + esc(x.aprende.p) + '</p>', 2) + '</div>');
-    if (x.padre) add(2, "Los Padres de la Iglesia", '<div>' +
-      rv('<p class="t-eyebrow">' + ICO.libro + 'La voz de los Padres de la Iglesia</p>') +
-      rv('<p class="t-grande">' + esc(x.padre.d) + '</p>', 1) +
-      rv('<p class="t-firma">' + esc(x.padre.q) + ' · <span>' + esc(x.padre.f) + '</span></p>', 2) + '</div>');
+           : '<div>' + ICO.play + '<p class="e-medio centro">El video de 3 minutos de hoy</p><p class="e-texto centro">Aparecerá aquí en cuanto se publique.</p></div>') + '</div>', { tipo: "video" });
+    add(2, "La liturgia nos enseña", '<div>' + rub('La liturgia nos enseña') +
+      '<h2 class="e-cita">' + esc(x.aprende.t) + '</h2>' +
+      '<p class="e-medio" style="margin-top:.55em">' + esc(x.aprende.p) + '</p></div>');
+    if (x.padre) add(2, "Los Padres de la Iglesia", '<div>' + rub('De los Padres de la Iglesia') +
+      '<p class="e-grande">' + esc(x.padre.d) + '</p>' + autor(x.padre.q, x.padre.f) + '</div>');
 
-    // 4. Meditamos
+    // IV. Meditamos
     tarjetaPaso(3);
-    add(3, "Reflexión", '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Para meditar</p>') + rv('<p class="t-grande">' + esc(x.med) + '</p>', 1) + '</div>');
-    if (x.santo) add(3, "Palabra de los santos", '<div>' +
-      rv('<p class="t-eyebrow">' + ICO.llama + 'Palabra de los santos</p>') +
-      rv('<p class="t-grande">' + (x.santo.cita ? '«' + esc(x.santo.t) + '»' : esc(x.santo.t)) + '</p>', 1) +
-      rv('<p class="t-firma">' + esc(x.santo.a) + ' · <span>' + esc(x.santo.f) + '</span></p>', 2) + '</div>');
-    add(3, "Dos preguntas", '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Dos preguntas para el corazón</p>') +
-      '<ol class="preguntas">' + x.preg.map(function(q, k){ return '<li class="rv" style="--d:' + (k * 2 + 1) + '">' + esc(q) + '</li>'; }).join("") + '</ol></div>');
+    add(3, "Reflexión", '<div><p class="e-grande versal">' + esc(x.med) + '</p></div>');
+    if (x.santo) add(3, "Palabra de los santos", '<div>' + rub('Palabra de los santos') +
+      '<p class="e-grande">' + (x.santo.cita ? '«' + esc(x.santo.t) + '»' : esc(x.santo.t)) + '</p>' + autor(x.santo.a, x.santo.f) + '</div>');
+    add(3, "Dos preguntas", '<div>' + rub('Cada uno responde en su corazón') +
+      '<ol class="preguntas">' + x.preg.map(function(q, k){ return '<li' + (k ? ' class="tarde"' : '') + '>' + esc(q) + '</li>'; }).join("") + '</ol></div>');
     add(3, "Un minuto de silencio", '<div class="silencio">' +
-      rv('<div class="anillo"><svg viewBox="0 0 120 120"><circle class="pista" cx="60" cy="60" r="52" fill="none" stroke-width="6"/><circle class="avance" cx="60" cy="60" r="52" fill="none" stroke-width="6" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><div class="seg" data-seg>60</div></div>') +
-      '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Un minuto de silencio</p>', 1) +
-      rv('<p class="t-grande" data-sil-txt>Nos quedamos en silencio con Jesús. Dejamos que su Palabra resuene en el corazón.</p>', 2) +
-      rv('<button class="btn luz" type="button" data-accion="silencio" style="margin-top:1.2em">Empezar el minuto</button>', 3) + '</div></div>', { tipo: "silencio" });
+      '<div class="anillo"><svg viewBox="0 0 120 120"><circle class="pista" cx="60" cy="60" r="52" fill="none" stroke-width="5"/><circle class="avance" cx="60" cy="60" r="52" fill="none" stroke-width="5" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg><div class="seg" data-seg>60</div></div>' +
+      '<div>' + rub('Un minuto de silencio') +
+      '<p class="e-grande" data-sil-txt>Nos quedamos en silencio con Jesús y dejamos que su Palabra resuene en el corazón.</p>' +
+      '<button class="btn vela" type="button" data-accion="silencio" style="margin-top:1.2em">Empezar el minuto</button></div></div>', { tipo: "silencio" });
 
-    // 5. Oramos
+    // V. Oramos
     tarjetaPaso(4);
     x.preces.forEach(function(p, k){
-      add(4, "Oración de los fieles · " + (k + 1) + " de " + x.preces.length, '<div>' +
-        rv('<p class="t-eyebrow">' + ICO.llama + 'Oración de los fieles · ' + (k + 1) + ' de ' + x.preces.length + '</p>') +
-        rv('<p class="t-grande">' + esc(p) + '</p>', 1) +
-        '<div class="rv" style="--d:5"><span class="respuesta">' + ICO.llama + 'Ven, Señor Jesús</span></div></div>');
+      add(4, "Oración de los fieles, " + (k + 1) + " de " + x.preces.length, '<div>' +
+        rub(k === 0 ? 'A cada intención respondemos: Ven, Señor Jesús.' : 'Intención ' + (k + 1) + ' de ' + x.preces.length) +
+        '<p class="e-grande">' + esc(p) + '</p>' +
+        '<p class="e-resp tarde"><span class="R" aria-hidden="true">R</span>Ven, Señor Jesús.</p></div>');
     });
-    add(4, "Padrenuestro", '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Con las palabras que Jesús nos enseñó, decimos</p>') +
-      rv('<p class="t-medio" style="max-width:42ch">' + esc(E.padrenuestro) + '</p>', 1) + '</div>');
+    add(4, "Padrenuestro", '<div>' + rub('Con las palabras que Jesús nos enseñó, decimos juntos:') +
+      '<p class="e-medio" style="max-width:42ch">' + esc(E.padrenuestro) + '</p></div>');
 
-    // 6. Vivimos
+    // VI. Vivimos
     tarjetaPaso(5);
-    add(5, "Oración final", '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Oración final</p>') +
-      rv('<p class="t-grande">' + esc(x.oracion) + '</p>', 1) +
-      rv('<p class="t-texto">El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. <b>Amén.</b></p>', 2) + '</div>');
-    add(5, "Propósito del día", '<div>' + rv('<p class="t-eyebrow">' + ICO.llama + 'Nuestro propósito para hoy</p>') +
-      rv('<p class="t-grande">' + esc(x.vivir) + '</p>', 1) +
-      rv('<button class="btn luz" type="button" data-accion="vivido" style="margin-top:1.4em">' + ICO.hecho.replace('<svg', '<svg width="22" height="22"') + 'Hemos vivido este día</button>', 2) + '</div>', { tipo: "final" });
+    add(5, "Oración final", '<div>' + rub('Oración final') +
+      '<p class="e-grande">' + esc(x.oracion) + '</p>' +
+      '<p class="e-texto">El Señor nos bendiga, nos guarde de todo mal y nos lleve a la vida eterna. <b>Amén.</b></p></div>');
+    add(5, "Propósito del día", '<div>' + rub('Nuestro propósito para hoy') +
+      '<p class="e-grande">' + esc(x.vivir) + '</p>' +
+      '<button class="btn vela" type="button" data-accion="vivido" style="margin-top:1.4em">' + ICO.hecho.replace('<svg', '<svg width="22" height="22"') + 'Hemos vivido este día</button></div>', { tipo: "final" });
     return L;
   }
 
   function pintarEscaleta(){
     var ol = $("#escaleta");
     ol.innerHTML = PASOS.map(function(p, k){
-      return '<li data-p="' + k + '"><button type="button" aria-label="Ir al paso ' + (k + 1) + ': ' + p + '"><span class="barra"><i></i></span><span class="nombre">' + (k + 1) + '. ' + p + '</span></button></li>';
+      return '<li data-p="' + k + '"><button type="button" aria-label="Ir al paso ' + (k + 1) + ': ' + p + '"><span class="barra"><i></i></span><span class="nombre">' + ROM[k] + '. ' + p + '</span></button></li>';
     }).join("");
     [].forEach.call(ol.querySelectorAll("button"), function(b, k){
       b.addEventListener("click", function(){ var j = escenas.findIndex(function(s){ return s.paso === k; }); if (j >= 0) ir(j); });
@@ -329,7 +325,7 @@
     idx = i; X = DIA.datos(i); escenas = construir(X);
     var tv = $("#vTv");
     tv.style.setProperty("--color-dia", colorDe(D[i]));
-    $("#tvQue").innerHTML = "<b>Encuentro de Adviento</b>Día " + X.n + " · " + esc(DIA.mayus(X.fecha));
+    $("#tvQue").innerHTML = "<b>Encuentro de Adviento</b>Día " + X.n + " de 26, " + esc(X.fecha);
     history.replaceState(null, "", "#dia-" + X.f);
     mostrar("vTv");
     pintarEscaleta();
@@ -353,14 +349,12 @@
     if (!sinBarrido && !reducido) { var b = $("#barrido"); b.classList.remove("va"); void b.offsetWidth; b.classList.add("va"); }
     // tercio inferior
     var t = $("#tercio");
-    $("#tercioPaso").innerHTML = esc0.paso < 0 ? '<b>' + X.n + '</b><span>Día ' + X.n + ' de 26</span>' : '<b>' + (esc0.paso + 1) + '</b><span>' + PASOS[esc0.paso] + '</span>';
+    $("#tercioPaso").innerHTML = esc0.paso < 0 ? '<b>' + X.n + '</b><span>Día ' + X.n + ' de 26</span>' : '<b>' + ROM[esc0.paso] + '</b><span>' + PASOS[esc0.paso] + '</span>';
     $("#tercioLbl").innerHTML = '<span>' + esc(esc0.paso < 0 ? X.titulo : esc0.lbl) + (esc0.paso < 0 ? '<em>' + esc(X.cel) + '</em>' : '') + '</span>';
     t.classList.remove("anima"); void t.offsetWidth; t.classList.add("anima");
     actualizarEscaleta();
     $("#bAnt").disabled = pos === 0;
     // fondo que se mueve con el paso
-    var fx = [72, 30, 64, 40, 70, 50, 60][esc0.paso + 1] || 60;
-    $(".tv-fondo").style.setProperty("--fx", fx + "%");
     prepararEscena(el, esc0);
   }
 
@@ -377,7 +371,7 @@
         var sig = velasTv[n - 1]; sig.classList.add("siguiente");
         s.pendiente = true;
         var btnV = el.querySelector('[data-accion="encender"]');
-        var hacer = function(){ if (!s.pendiente) return; s.pendiente = false; sig.classList.remove("apagada"); fig.classList.remove("pide"); btnV.textContent = "Vela encendida"; btnV.disabled = true; };
+        var hacer = function(){ if (!s.pendiente) return; s.pendiente = false; sig.classList.remove("apagada"); fig.classList.remove("pide"); btnV.textContent = "La vela está encendida"; btnV.disabled = true; };
         sig.addEventListener("click", hacer); btnV.addEventListener("click", hacer);
         s.accion = hacer;
       } else {
@@ -437,11 +431,10 @@
     if (!X) return;
     vividos[X.f] = Date.now(); guardar(CLAVE_VIV, vividos);
     var v = $("#vVivido");
-    $("#vivQue").textContent = "Día " + X.n + " de 26 vivido · " + DIA.mayus(X.fecha);
+    $("#vivQue").textContent = "Día " + X.n + " de 26, vivido el " + X.fecha;
     $("#vivTit").textContent = X.titulo;
     var html = DIA.resumen(X);
     var cuerpo = $("#vivCuerpo"); cuerpo.innerHTML = html;
-    [].forEach.call(cuerpo.querySelectorAll(".r-bloque"), function(b, k){ b.style.setProperty("--d", k); });
     var pdf = $("#vivPdf"); pdf.href = X.pdf; pdf.setAttribute("download", X.pdfNombre);
     $("#vivWa").href = enlaceWa(X);
     v.hidden = false; v.classList.remove("abre"); void v.offsetWidth; v.classList.add("abre");

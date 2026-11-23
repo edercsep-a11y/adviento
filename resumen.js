@@ -39,26 +39,26 @@
     };
   }
 
-  function voz(p){ return p ? '<p class="r-voz">' + esc(p.d) + '</p><p class="r-firma">' + esc(p.q) + ' · <span>' + esc(p.f) + '</span></p>' : ""; }
+  function voz(p){ return p ? '<p class="r-voz">' + esc(p.d) + '</p><p class="r-firma">' + esc(p.q) + '<cite>' + esc(p.f) + '</cite></p>' : ""; }
   function santo(s){
     if (!s) return "";
-    return '<blockquote class="r-cita' + (s.cita ? '' : ' idea') + '">' + (s.cita ? '«' + esc(s.t) + '»' : esc(s.t)) + '</blockquote><p class="r-firma">' + esc(s.a) + ' · <span>' + esc(s.f) + '</span></p>';
+    return '<blockquote class="r-cita' + (s.cita ? '' : ' idea') + '">' + (s.cita ? '«' + esc(s.t) + '»' : esc(s.t)) + '</blockquote><p class="r-firma">' + esc(s.a) + '<cite>' + esc(s.f) + '</cite></p>';
   }
 
   /* Resumen pedagógico del día, en bloques ordenados */
   function resumen(x){
     var palabra = x.previas.map(function(l){
-      return '<li><b>' + esc(l.etiqueta) + ' · ' + esc(l.cita) + '</b><span>' + esc(l.res) + '</span></li>';
+      return '<li><b>' + esc(l.etiqueta) + ': ' + esc(l.cita) + '</b><span>' + esc(l.res) + '</span></li>';
     }).join("");
     return '' +
       '<section class="r-bloque r-clave"><h3>La luz de hoy</h3><p class="r-grande">' + esc(x.med) + '</p></section>' +
       '<section class="r-bloque"><h3>Escuchamos la Palabra</h3><ul class="r-lista">' + palabra + '</ul></section>' +
-      '<section class="r-bloque"><h3>Acogimos el Evangelio</h3><p class="r-cita-biblica">' + esc(x.evangelio.cita) + (x.evangelista ? ' · san ' + esc(x.evangelista) : '') + '</p><p>' + esc(x.evangelio.res) + '</p></section>' +
+      '<section class="r-bloque"><h3>Acogimos el Evangelio</h3><p class="r-cita-biblica">' + esc(x.evangelio.cita) + (x.evangelista ? ', según san ' + esc(x.evangelista) : '') + '</p><p>' + esc(x.evangelio.res) + '</p></section>' +
       '<section class="r-bloque"><h3>La liturgia nos enseña</h3><p class="r-sub">' + esc(x.aprende.t) + '</p><p>' + esc(x.aprende.p) + '</p></section>' +
       (x.padre ? '<section class="r-bloque"><h3>La voz de los Padres</h3>' + voz(x.padre) + '</section>' : '') +
       (x.santo ? '<section class="r-bloque"><h3>Palabra de los santos</h3>' + santo(x.santo) + '</section>' : '') +
-      '<section class="r-bloque"><h3>Para seguir meditando</h3><ol class="r-preg">' + x.preg.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join("") + '</ol></section>' +
-      (x.ant ? '<section class="r-bloque"><h3>Antífona de hoy · ' + esc(x.ant.t) + '</h3><p class="r-antifona">' + esc(x.ant.texto) + '</p></section>' : '') +
+      '<section class="r-bloque"><h3>Para seguir meditando</h3><ol class="r-preg" type="I">' + x.preg.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join("") + '</ol></section>' +
+      (x.ant ? '<section class="r-bloque"><h3>Antífona «' + esc(x.ant.t) + '»</h3><p class="r-antifona">' + esc(x.ant.texto) + '</p></section>' : '') +
       '<section class="r-bloque"><h3>Oramos</h3><p class="r-oracion">' + esc(x.oracion) + '</p></section>' +
       '<section class="r-bloque r-proposito"><h3>Mi propósito</h3><p class="r-grande">' + esc(x.vivir) + '</p></section>';
   }

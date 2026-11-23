@@ -7,28 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <style>
 @page{size:A4;margin:0}
-:root{--papel:#F8F3E8;--tinta:#1E1838;--tinta-2:#4A4266;--oro:#9A6420;--oro-claro:#E9C98E;--violeta:#5A3E9E;--linea:rgba(30,24,56,.14);
+:root{--papel:#F8F3E8;--tinta:#1E1838;--tinta-2:#4A4266;--oro:#9A6420;--oro-claro:#E9C98E;--violeta:#5A3E9E;--linea:rgba(30,24,56,.18);--rubrica:#A32A1E;
   --display:"Cormorant Garamond",Georgia,serif;--sans:"Atkinson Hyperlegible",Arial,sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);font-size:10.6pt;line-height:1.45;font-variant-numeric:lining-nums;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 /* marca de agua y marco en cada página */
 .pagina{position:relative;width:210mm;height:297mm;overflow:hidden;break-after:page}
 .pagina:last-child{break-after:auto}
-.agua{position:absolute;left:50%;top:52%;width:118mm;transform:translate(-50%,-50%);opacity:.05;z-index:0}
+.agua{position:absolute;left:50%;top:52%;width:118mm;transform:translate(-50%,-50%);opacity:.04;z-index:0}
 .marco{position:absolute;inset:7mm;border:.5pt solid rgba(154,100,32,.45);border-radius:3mm;z-index:0}
 .pie{position:absolute;left:0;right:0;bottom:11mm;display:flex;justify-content:space-between;align-items:center;padding:0 16mm;font-size:8pt;color:var(--tinta-2);z-index:1}
 .pie img{height:7mm;width:auto}
 .hoja{position:absolute;z-index:1;left:16mm;right:16mm;top:15mm;bottom:21mm}
 .pagina + .pagina .hoja{top:14mm}
+.pagina + .pagina .cuerpo > :nth-child(-n+2){border-top:0;padding-top:0}
 /* cabecera */
-.cab{display:flex;justify-content:space-between;align-items:center;border-bottom:.8pt solid var(--oro);padding-bottom:4mm}
+.cab{display:flex;justify-content:space-between;align-items:center;padding-bottom:3mm}
 .cab img{height:13mm;width:auto}
 .cab .der{text-align:right;font-size:9pt;color:var(--tinta-2)}
-.cab .der b{display:block;font-family:var(--display);font-size:15pt;color:var(--oro);font-weight:600}
-.titular{display:grid;grid-template-columns:1fr auto;gap:8mm;align-items:center;margin:6mm 0 4mm}
-.fecha{margin:0;font-weight:700;color:var(--oro);font-size:10pt}
+.cab .der b{display:block;font-family:var(--display);font-size:15pt;color:var(--rubrica);font-weight:600}
+.titular{display:grid;grid-template-columns:1fr auto;gap:8mm;align-items:center;margin:6mm 0 5mm;padding-bottom:4mm;border-bottom:.6pt solid var(--linea)}
+.fecha{margin:0;font-family:var(--display);font-style:italic;font-weight:600;color:var(--rubrica);font-size:13pt}
 h1{font-family:var(--display);font-weight:600;font-size:34pt;line-height:1;margin:1.5mm 0 2mm;letter-spacing:-.01em}
-.cel{margin:0;font-size:11pt;color:var(--tinta-2)}
+.cel{margin:0;font-family:var(--display);font-style:italic;font-size:14pt;color:var(--tinta-2)}
+.datos{display:flex;align-items:center;gap:2mm;margin:2.5mm 0 0;font-size:9pt;color:var(--tinta-2)}
+.datos i{width:2.6mm;height:2.6mm;border-radius:50%;background:var(--color-dia,#7A5AC8)}
 .chips{display:flex;gap:2mm;margin-top:3mm;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:center;gap:1.6mm;font-size:8.6pt;padding:1mm 3mm;border-radius:10mm;border:.6pt solid var(--linea);background:rgba(255,255,255,.55)}
 .chip i{width:2.6mm;height:2.6mm;border-radius:50%;background:var(--color-dia,#7A5AC8)}
@@ -36,13 +39,16 @@ h1{font-family:var(--display);font-weight:600;font-size:34pt;line-height:1;margi
 .ruta{display:grid;grid-template-columns:repeat(6,1fr);gap:1.5mm;margin:0 0 5mm;padding:0;list-style:none;counter-reset:r}
 .ruta li{counter-increment:r;font-size:7.6pt;color:var(--tinta-2);border-top:1.4pt solid var(--oro-claro);padding-top:1.4mm}
 .ruta li::before{content:counter(r) ". ";font-weight:700;color:var(--oro)}
-/* bloques del resumen (misma estructura que la ventana del día vivido) */
-.cuerpo{display:grid;grid-template-columns:1fr 1fr;gap:3.2mm;align-items:start}
-.r-bloque{break-inside:avoid;border:.6pt solid var(--linea);border-radius:2.6mm;padding:3.6mm 4mm;background:rgba(255,255,255,.62)}
-.r-bloque h3{margin:0 0 1.6mm;font-size:8.4pt;font-weight:700;color:var(--oro);letter-spacing:.02em}
+/* bloques del resumen: hoja de misal, con rúbricas y filetes */
+.cuerpo{display:grid;grid-template-columns:1fr 1fr;gap:0 9mm;align-items:start}
+.r-bloque{break-inside:avoid;border-top:.6pt solid var(--linea);padding:3.2mm 0 3mm}
+.r-bloque h3{margin:0 0 1.2mm;font-family:var(--display);font-style:italic;font-weight:600;font-size:12.6pt;color:var(--rubrica)}
 .r-bloque p{margin:0 0 1.6mm}.r-bloque p:last-child{margin:0}
-.r-clave,.r-proposito{grid-column:1/-1;background:linear-gradient(110deg,rgba(233,201,142,.45),rgba(160,138,230,.16));border-color:rgba(154,100,32,.4)}
-.r-grande{font-family:var(--display);font-size:15.5pt;line-height:1.2}
+.r-clave,.r-proposito{grid-column:1/-1}
+.r-clave{border-top:0;padding-top:0}
+.r-clave .r-grande::first-letter{float:left;font-family:var(--display);font-weight:600;color:var(--rubrica);font-size:3.2em;line-height:.8;margin:.06em .08em 0 0}
+.r-proposito{border-top:0;border-left:2.2pt solid var(--oro);padding:1.5mm 0 1.5mm 4mm;margin:2mm 0 3mm}
+.r-grande{font-family:var(--display);font-size:15.5pt;line-height:1.22}
 .r-lista{list-style:none;margin:0;padding:0;display:grid;gap:1.8mm}
 .r-lista b{display:block;font-size:9.4pt}
 .r-lista span{color:var(--tinta-2)}
@@ -50,13 +56,14 @@ h1{font-family:var(--display);font-weight:600;font-size:34pt;line-height:1;margi
 .r-sub{font-family:var(--display);font-size:13pt;font-weight:600}
 .r-voz,.r-cita,.r-antifona,.r-oracion{font-family:var(--display);font-size:12.6pt;line-height:1.28}
 .r-cita{margin:0 0 1.6mm}
-.r-firma{font-size:8.6pt;color:var(--oro)}
-.r-firma span{color:var(--tinta-2)}
-.r-preg{margin:0;padding-left:4.5mm;display:grid;gap:1.4mm}
-.notas{grid-column:1/-1;break-inside:avoid;border:.6pt solid var(--linea);border-radius:2.6mm;padding:3.6mm 4mm;background:rgba(255,255,255,.62)}
-.notas h3{margin:0 0 1mm;font-size:8.4pt;color:var(--oro)}
-.notas i{display:block;height:8mm;border-bottom:.5pt dashed rgba(30,24,56,.25)}
-.cierre{grid-column:1/-1;display:flex;align-items:center;gap:4mm;margin-top:1mm;font-size:9pt;color:var(--tinta-2);break-inside:avoid}
+.r-firma{font-size:8.8pt;color:var(--tinta)}
+.r-firma cite{display:block;font-family:var(--display);font-style:italic;font-size:10pt;color:var(--tinta-2)}
+.r-preg{margin:0;padding-left:5mm;display:grid;gap:1.4mm;list-style:upper-roman}
+.r-preg li::marker{color:var(--rubrica);font-family:var(--display);font-weight:600}
+.notas{grid-column:1/-1;break-inside:avoid;border-top:.6pt solid var(--linea);padding:3.2mm 0 0}
+.notas h3{margin:0 0 .5mm;font-family:var(--display);font-style:italic;font-weight:600;font-size:12.6pt;color:var(--rubrica)}
+.notas i{display:block;height:8.5mm;border-bottom:.5pt solid rgba(30,24,56,.2)}
+.cierre{grid-column:1/-1;display:flex;align-items:baseline;gap:4mm;margin-top:4mm;font-size:9pt;color:var(--tinta-2);break-inside:avoid}
 .cierre b{font-family:var(--display);font-size:13pt;color:var(--tinta);font-weight:600}
 </style>
 </head>
@@ -84,7 +91,7 @@ h1{font-family:var(--display);font-weight:600;font-size:34pt;line-height:1;margi
   function pagina(n){
     var pg = document.createElement("section"); pg.className = "pagina";
     pg.innerHTML = '<img class="agua" src="img/sello-oscuro.png" alt=""><div class="marco"></div>' +
-      '<div class="pie"><span>divinadataoficial.com · Adviento 2026, Maranatha · Página ' + n + '</span><img src="img/logo-oscuro.png" alt="Divina Data"></div><main class="hoja"></main>';
+      '<div class="pie"><span>divinadataoficial.com, Adviento 2026. Página ' + n + '</span><img src="img/logo-oscuro.png" alt="Divina Data"></div><main class="hoja"></main>';
     document.getElementById("paginas").appendChild(pg);
     return pg.querySelector(".hoja");
   }
@@ -95,8 +102,7 @@ h1{font-family:var(--display);font-weight:600;font-size:34pt;line-height:1;margi
   var hoja = pagina(1), n = 1;
   hoja.innerHTML = '<header class="cab"><img src="img/logo-oscuro.png" alt="Divina Data"><div class="der"><b>Día ' + x.n + ' de 26</b>Encuentro de Adviento 2026</div></header>' +
     '<section class="titular"><div><p class="fecha">' + esc(DIA.mayus(x.fecha)) + ' de 2026</p><h1>' + esc(x.titulo) + '</h1><p class="cel">' + esc(x.cel) + '</p>' +
-      '<div class="chips"><span class="chip"><i></i>Color litúrgico: ' + esc(x.colorNombre) + '</span><span class="chip">Semana ' + x.semana + ': ' + esc(x.semanaNombre) + '</span></div></div>' + sello + '</section>' +
-    '<ol class="ruta">' + pasos.map(function(s){ return '<li>' + s + '</li>'; }).join("") + '</ol><div class="cuerpo"></div>';
+      '<p class="datos"><i></i>Color litúrgico ' + esc(x.colorNombre.toLowerCase()) + '. ' + ["Primera","Segunda","Tercera","Cuarta"][x.semana - 1] + ' semana: ' + esc(x.semanaNombre) + '.</p></div>' + sello + '</section><div class="cuerpo"></div>';
   var cuerpo = hoja.querySelector(".cuerpo");
   bloques.forEach(function(b){
     cuerpo.appendChild(b);
