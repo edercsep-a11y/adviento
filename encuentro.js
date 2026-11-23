@@ -134,6 +134,7 @@
   var salaLista = false;
   function iniciarSala(){
     mostrar("vSala");
+    limpiarDireccion();
     $("#avisoRevision").hidden = !E.abrirTodo;
     pintarSala();
     salaLista = true;
@@ -335,7 +336,7 @@
     var tv = $("#vTv");
     tv.style.setProperty("--color-dia", colorDe(D[i]));
     $("#tvQue").innerHTML = "<b>Encuentro de Adviento</b>Día " + X.n + " de 26, " + esc(X.fecha);
-    history.replaceState(null, "", "#dia-" + X.f);
+    limpiarDireccion();
     mostrar("vTv");
     pintarEscaleta();
     pos = -1; ir(inicio || 0, true);
@@ -417,6 +418,8 @@
   }
   function anterior(){ ir(pos - 1); }
 
+  /* la dirección queda siempre limpia: .../encuentro.html */
+  function limpiarDireccion(){ try { if (location.hash || location.search) history.replaceState(null, "", location.pathname); } catch(e){} }
   function enPantallaCompleta(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
   function salirDePantallaCompleta(){
     try {
@@ -430,7 +433,7 @@
     clearInterval(silencioT);
     $("#vVivido").hidden = true;
     salirDePantallaCompleta();
-    try { history.replaceState(null, "", location.pathname + location.search); } catch(e){}
+    limpiarDireccion();
     idx = -1;
     $("#escenario").innerHTML = "";
     iniciarSala();
