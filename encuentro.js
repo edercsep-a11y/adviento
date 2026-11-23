@@ -417,17 +417,31 @@
   }
   function anterior(){ ir(pos - 1); }
 
+  function enPantallaCompleta(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
+  function salirDePantallaCompleta(){
+    try {
+      if (!enPantallaCompleta()) return;
+      var salir = document.exitFullscreen || document.webkitExitFullscreen;
+      var r = salir && salir.call(document);
+      if (r && typeof r.catch === "function") r.catch(function(){});
+    } catch(e){}
+  }
   function salirTv(){
     clearInterval(silencioT);
-    if (document.fullscreenElement) document.exitFullscreen().catch(function(){});
-    history.replaceState(null, "", location.pathname + location.search);
+    $("#vVivido").hidden = true;
+    salirDePantallaCompleta();
+    try { history.replaceState(null, "", location.pathname + location.search); } catch(e){}
+    idx = -1;
     $("#escenario").innerHTML = "";
     iniciarSala();
   }
   function pantallaCompleta(){
-    var el = document.documentElement;
-    if (!document.fullscreenElement) { (el.requestFullscreen || el.webkitRequestFullscreen || function(){}).call(el); }
-    else { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+    try {
+      if (enPantallaCompleta()) { salirDePantallaCompleta(); return; }
+      var el = document.documentElement, entrar = el.requestFullscreen || el.webkitRequestFullscreen;
+      var r = entrar && entrar.call(el);
+      if (r && typeof r.catch === "function") r.catch(function(){});
+    } catch(e){}
   }
 
   /* ---------- 4. Día vivido ---------- */
@@ -488,7 +502,7 @@
     else if (k === "Home") { e.preventDefault(); ir(0); }
     else if (k === "End") { e.preventDefault(); ir(escenas.length - 1); }
     else if (k === "f" || k === "F") { pantallaCompleta(); }
-    else if (k === "Escape" && !document.fullscreenElement) { salirTv(); }
+    else if (k === "Escape" && !enPantallaCompleta()) { salirTv(); }
   });
   // deslizar en celulares
   var x0 = null, y0 = null;
