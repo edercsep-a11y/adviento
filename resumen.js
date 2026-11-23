@@ -34,7 +34,7 @@
       med: r.med || "", preg: r.preg || [], preces: r.preces || [], oracion: r.oracion || "",
       vivir: d.vivir, video: d.video || "", colorNombre: NOMBRE_COLOR[d.color] || mayus(d.color),
       lecturasUrl: d.f === "2026-12-12" ? "" : "https://www.ewtn.com/es/catolicismo/lecturas/" + d.f,
-      pdf: "pdf/adviento-2026-dia-" + dosDigitos(i + 1) + ".pdf",
+      pdf: "/adviento/pdf/adviento-2026-dia-" + dosDigitos(i + 1) + ".pdf",
       pdfNombre: "Adviento-2026-Dia-" + dosDigitos(i + 1) + "-Divina-Data.pdf"
     };
   }

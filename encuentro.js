@@ -418,7 +418,7 @@
   }
   function anterior(){ ir(pos - 1); }
 
-  /* la dirección queda siempre limpia: .../encuentro.html */
+  /* la dirección queda siempre limpia: divinadataoficial.com/encuentro */
   function limpiarDireccion(){ try { if (location.hash || location.search) history.replaceState(null, "", location.pathname); } catch(e){} }
   function enPantallaCompleta(){ return document.fullscreenElement || document.webkitFullscreenElement || null; }
   function salirDePantallaCompleta(){
