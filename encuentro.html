@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encuentro de Adviento · Divina Data</title>
+<meta name="description" content="El encuentro de oración de cada noche del Adviento 2026 de Divina Data: preparamos el corazón, escuchamos la Palabra, meditamos, oramos y vivimos.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C0919">
+<link rel="icon" href="img/icono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fondo:#0C0919; --noche:#140F27; --noche-2:#1D1638; --noche-3:#272047;
+  --violeta:#6B4BB0; --violeta-claro:#A08AE6;
+  --llama:#F2B45A; --llama-suave:#F7D08F; --brasa:#E0782E;
+  --cera:#F3ECDD; --cera-80:rgba(243,236,221,.82); --cera-60:rgba(243,236,221,.62); --cera-15:rgba(243,236,221,.15);
+  --tinta:#1E1838; --rosa:#D98BA6;
+  --lit:#7A5AC8;
+  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --salida:cubic-bezier(.23,1,.32,1);
+  --suave:cubic-bezier(.65,0,.35,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--fondo);color:var(--cera);font-family:var(--sans);font-size:18px;line-height:1.5;font-variant-numeric:lining-nums;-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--llama);outline-offset:3px;border-radius:8px}
+.oculto{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
+svg{display:block}
+
+/* luz de fondo y grano de película */
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60% 50% at 50% 115%, rgba(242,180,90,.20), transparent 70%),
+    radial-gradient(55% 45% at 0% 0%, rgba(107,75,176,.38), transparent 70%),
+    radial-gradient(50% 40% at 100% 10%, rgba(107,75,176,.18), transparent 70%),
+    var(--fondo)}
+.grano{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.06;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")}
+.vista{position:relative;z-index:1}
+
+/* ---------- botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:12px 22px;border-radius:14px;border:2px solid transparent;
+  font-weight:700;font-size:18px;text-decoration:none;transition:background-color .2s ease,border-color .2s ease,transform .16s var(--salida)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn.luz{background:var(--llama);color:var(--tinta);box-shadow:0 12px 34px -12px rgba(242,180,90,.7)}
+.btn.luz:hover{background:var(--llama-suave)}
+.btn.linea{border-color:rgba(243,236,221,.32);background:transparent}
+.btn.linea:hover{border-color:var(--cera)}
+.btn.wa{background:#1F9D55;color:#fff}
+.btn.wa:hover{background:#178a49}
+
+/* ---------- 1. Entrada con contraseña ---------- */
+.entrada{min-height:100dvh;display:grid;place-items:center;padding:32px 20px}
+.entrada-caja{width:min(100%,520px);text-align:center}
+.entrada .corona-chica{width:min(78vw,380px);margin:0 auto -8px}
+.entrada .marca{width:150px;margin:0 auto 18px}
+.entrada h1{font-family:var(--display);font-weight:600;font-size:clamp(46px,9vw,76px);line-height:.95;margin:8px 0 10px;letter-spacing:-.01em}
+.entrada .lema{font-family:var(--display);font-style:italic;font-size:24px;color:var(--llama-suave);margin:0}
+.entrada p.txt{color:var(--cera-80);margin:14px auto 26px;max-width:34ch}
+.campo{display:flex;flex-direction:column;gap:10px;text-align:left}
+.campo label{font-weight:700;font-size:17px}
+.campo-fila{display:flex;gap:10px}
+.campo input{flex:1;min-width:0;min-height:56px;border-radius:14px;border:2px solid rgba(243,236,221,.3);background:rgba(12,9,25,.6);padding:12px 16px;font-size:19px;letter-spacing:.04em;text-transform:uppercase}
+.campo input:focus{outline:none;border-color:var(--llama)}
+.campo .error{color:#FFB4A8;font-size:16px;min-height:24px;margin:0}
+.entrada .sacudir{animation:sacude .42s var(--suave)}
+@keyframes sacude{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+@media (max-width:460px){.campo-fila{flex-direction:column}}
+
+/* ---------- 2. Sala de los 26 días ---------- */
+.sala{max-width:1240px;margin:0 auto;padding:28px 24px 80px}
+.sala-cabeza{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sala-cabeza .marca{width:104px}
+.sala-cabeza a.volver{color:var(--cera-80);font-size:16px;text-decoration:underline;text-underline-offset:4px}
+.sala-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 48px;align-items:center;margin:34px 0 40px}
+.sala-hero h1{font-family:var(--display);font-weight:600;font-size:clamp(42px,5.4vw,78px);line-height:.98;margin:0 0 14px;letter-spacing:-.01em}
+.sala-hero .lema{font-family:var(--display);font-style:italic;font-size:26px;color:var(--llama-suave);margin:0 0 8px}
+.sala-hero p.txt{color:var(--cera-80);max-width:52ch;margin:0}
+.aviso-revision{display:flex;gap:12px;align-items:flex-start;margin:20px 0 0;padding:14px 16px;border-radius:14px;background:rgba(242,180,90,.1);border:1.5px solid rgba(242,180,90,.4);font-size:16px;max-width:60ch}
+.aviso-revision svg{width:22px;height:22px;flex:none;color:var(--llama);margin-top:1px}
+.destacado{position:relative;border-radius:24px;padding:26px 26px 24px;background:linear-gradient(150deg,#2A2150,#150F2D 70%);border:1.5px solid rgba(242,180,90,.35);overflow:hidden}
+.destacado::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(closest-side,rgba(242,180,90,.35),transparent);pointer-events:none}
+.destacado .que{font-size:16px;color:var(--llama-suave);font-weight:700;margin:0}
+.destacado h2{font-family:var(--display);font-weight:600;font-size:clamp(32px,3.2vw,44px);line-height:1.02;margin:6px 0 6px}
+.destacado .cel{margin:0 0 18px;color:var(--cera-80);font-size:17px}
+.destacado .acciones{display:flex;gap:10px;flex-wrap:wrap}
+.semana{margin-top:34px}
+.semana h3{font-family:var(--display);font-weight:600;font-size:30px;margin:0 0 2px}
+.semana p{margin:0 0 16px;color:var(--cera-60);font-size:16px}
+.rejilla{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}
+@media (max-width:1180px){.rejilla{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile{position:relative;width:100%;min-height:148px;text-align:left;border-radius:18px;padding:16px 16px 14px;background:rgba(29,22,56,.7);border:1.5px solid rgba(243,236,221,.13);display:flex;flex-direction:column;gap:4px;transition:border-color .2s ease,transform .25s var(--salida),background-color .2s ease}
+.tile:hover{border-color:rgba(242,180,90,.6);transform:translateY(-2px)}
+.tile .num{font-family:var(--display);font-weight:600;font-size:38px;line-height:1;color:var(--llama-suave)}
+.tile .fec{font-size:15px;color:var(--cera-60)}
+.tile .tit{font-family:var(--display);font-size:19px;line-height:1.15;font-weight:600;margin-top:auto}
+.tile .estado{position:absolute;top:14px;right:14px;width:28px;height:28px;color:var(--cera-60)}
+.tile .estado svg{width:100%;height:100%}
+.tile .franja{position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 4px 4px;background:var(--color-dia,var(--lit))}
+.tile.cerrado{background:rgba(20,15,39,.6)}
+.tile.cerrado .num,.tile.cerrado .tit{opacity:.55}
+.tile.cerrado:hover{transform:none;border-color:rgba(243,236,221,.25)}
+.tile.vivido{border-color:rgba(108,198,148,.55)}
+.tile.vivido .estado{color:#7FD3A4}
+.tile.hoy{border-color:var(--llama);box-shadow:0 0 0 4px rgba(242,180,90,.14)}
+.tile .hoy-pill{align-self:flex-start;font-size:13px;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--llama);color:var(--tinta);margin-bottom:2px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;z-index:80;background:#2A2150;border:1.5px solid rgba(242,180,90,.5);padding:14px 20px;border-radius:14px;font-size:17px;max-width:min(92vw,520px);text-align:center;transition:opacity .25s ease,transform .35s var(--salida);pointer-events:none}
+.toast.ver{opacity:1;transform:translate(-50%,0)}
+@media (max-width:860px){.sala-hero{grid-template-columns:1fr;margin-top:22px}.rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- 3. Proyección estilo televisión ---------- */
+.tv{position:fixed;inset:0;z-index:20;display:grid;grid-template-rows:auto 1fr auto auto;background:var(--fondo);overflow:hidden}
+.tv .cielo{position:absolute}
+.tv-fondo{position:absolute;inset:-6%;z-index:0;pointer-events:none;transition:opacity 1.2s ease;
+  background:radial-gradient(45% 55% at var(--fx,72%) var(--fy,62%), rgba(242,180,90,.16), transparent 70%), radial-gradient(60% 60% at 10% 0%, rgba(107,75,176,.42), transparent 70%)}
+@media (prefers-reduced-motion:no-preference){.tv-fondo{animation:deriva 26s ease-in-out infinite alternate}}
+@keyframes deriva{from{transform:translate3d(-1.5%,0,0) scale(1)}to{transform:translate3d(1.5%,-1%,0) scale(1.05)}}
+.tv-top,.escenario,.tercio,.tv-pie{position:relative;z-index:1}
+.tv-top{grid-row:1}.escenario{grid-row:2}.tercio{grid-row:3}.tv-pie{grid-row:4}
+.tv .agua{position:absolute;z-index:0;right:clamp(-120px,-4vw,-40px);bottom:clamp(90px,14vh,170px);width:clamp(260px,30vw,560px);opacity:.045;pointer-events:none}
+@media (max-width:760px){.tv .agua{display:none}}
+
+/* barra superior (la "mosca" de televisión) */
+.tv-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(12px,2vh,22px) clamp(16px,3vw,44px) 0}
+.mosca{display:flex;align-items:center;gap:12px;min-width:0}
+.mosca img{height:clamp(34px,4.6vh,52px);width:auto}
+.mosca .que{font-size:clamp(14px,1.15vw,18px);line-height:1.2;color:var(--cera-80)}
+.mosca .que b{display:block;color:var(--cera);font-weight:700}
+.tv-der{display:flex;align-items:center;gap:clamp(10px,1.4vw,20px)}
+.reloj{font-variant-numeric:lining-nums tabular-nums;font-size:clamp(15px,1.2vw,19px);padding:6px 12px;border-radius:10px;background:rgba(243,236,221,.08);border:1px solid var(--cera-15);display:flex;align-items:center;gap:8px;white-space:nowrap}
+.reloj i{width:9px;height:9px;border-radius:50%;background:var(--llama);box-shadow:0 0 12px var(--llama)}
+@media (prefers-reduced-motion:no-preference){.reloj i{animation:respira 2.4s ease-in-out infinite alternate}}
+.ico-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--cera-15);background:rgba(243,236,221,.06);display:grid;place-items:center;transition:background-color .2s ease,border-color .2s ease}
+.ico-btn:hover{background:rgba(243,236,221,.14);border-color:rgba(243,236,221,.4)}
+.ico-btn svg{width:22px;height:22px}
+
+/* escenario */
+.escenario{position:relative;min-height:0;display:grid;padding:clamp(8px,2vh,24px) clamp(18px,6vw,120px)}
+.escena{grid-area:1/1;align-self:center;width:100%;max-width:1500px;margin:0 auto;max-height:100%;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;padding:14px 4px 18px}
+.escena.es-paso,.escena.es-portada{overflow:visible}
+.escena.sale{animation:sale .45s var(--suave) forwards;pointer-events:none}
+.escena.entra{animation:entraE .8s var(--salida) both}
+@keyframes sale{to{opacity:0;transform:translateY(-12px) scale(.985);filter:blur(4px)}}
+@keyframes entraE{from{opacity:0;transform:translateY(16px) scale(1.01);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.rv{opacity:0;animation:rv .9s var(--salida) forwards;animation-delay:calc(var(--d,0) * 140ms + 160ms)}
+@keyframes rv{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.escena.entra,.escena.sale,.rv{animation:none!important;opacity:1}}
+
+/* barrido de luz entre escenas (transición televisiva) */
+.barrido{position:absolute;inset:0;z-index:30;pointer-events:none;overflow:hidden}
+.barrido i{position:absolute;top:-10%;bottom:-10%;width:22%;left:-30%;transform:skewX(-14deg);
+  background:linear-gradient(90deg,transparent,rgba(247,208,143,.0) 10%,rgba(247,208,143,.22) 45%,rgba(255,244,214,.55) 50%,rgba(247,208,143,.22) 55%,transparent 90%);
+  mix-blend-mode:screen;opacity:0}
+.barrido.va i{animation:barre .9s var(--suave)}
+@keyframes barre{0%{left:-30%;opacity:0}15%{opacity:1}100%{left:120%;opacity:0}}
+@media (prefers-reduced-motion:reduce){.barrido{display:none}}
+
+/* tipografía del escenario */
+.t-eyebrow{font-size:clamp(16px,1.35vw,22px);font-weight:700;color:var(--llama-suave);margin:0 0 .6em;display:flex;align-items:center;gap:.6em}
+.t-eyebrow svg{width:1.2em;height:1.2em}
+.t-titulo{font-family:var(--display);font-weight:600;font-size:clamp(44px,6.4vw,124px);line-height:.95;letter-spacing:-.015em;margin:0}
+.t-grande{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.3vw,62px);line-height:1.16;margin:0;max-width:30ch;text-wrap:pretty}
+.t-medio{font-family:var(--display);font-weight:500;font-size:clamp(24px,2.5vw,46px);line-height:1.22;margin:0;max-width:36ch;text-wrap:pretty}
+.t-texto{font-size:clamp(18px,1.55vw,28px);line-height:1.5;color:var(--cera-80);margin:.9em 0 0;max-width:52ch;text-wrap:pretty}
+.t-firma{font-size:clamp(16px,1.3vw,22px);color:var(--llama-suave);margin:1em 0 0}
+.t-firma span{color:var(--cera-60)}
+.t-cita{font-family:var(--display);font-weight:600;font-size:clamp(30px,3.4vw,64px);line-height:1;margin:0 0 .25em;color:var(--cera)}
+.t-cita small{display:block;font-family:var(--sans);font-weight:400;font-size:clamp(16px,1.3vw,22px);color:var(--cera-60);margin-top:.5em}
+.t-centro{text-align:center;margin-left:auto;margin-right:auto}
+.t-centro .t-grande,.t-centro .t-medio,.t-centro .t-texto{margin-left:auto;margin-right:auto}
+.dos{display:grid;grid-template-columns:1fr minmax(260px,.75fr);gap:clamp(20px,4vw,80px);align-items:center}
+@media (max-width:900px){.dos{grid-template-columns:1fr}}
+.respuesta{display:inline-flex;align-items:center;gap:.6em;margin-top:1.2em;padding:.5em 1em;border-radius:999px;background:var(--llama);color:var(--tinta);font-weight:700;font-size:clamp(18px,1.7vw,30px)}
+.respuesta svg{width:1.1em;height:1.1em}
+.amen{font-family:var(--display);font-style:italic;font-size:clamp(26px,2.6vw,48px);color:var(--llama-suave);margin:.6em 0 0}
+.enlace-lect{display:inline-flex;align-items:center;gap:8px;margin-top:1.1em;font-size:clamp(15px,1.2vw,19px);color:var(--cera-80);text-decoration:underline;text-underline-offset:4px}
+
+/* tarjeta de paso (título de cada bloque) */
+.paso-card{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,56px);align-items:center}
+.paso-num{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(110px,13vw,250px);line-height:.92;padding-right:.08em;color:transparent;-webkit-text-stroke:2px rgba(242,180,90,.75);text-stroke:2px rgba(242,180,90,.75)}
+.paso-card .t-texto{margin-top:.6em}
+@media (max-width:640px){.paso-card{grid-template-columns:1fr}.paso-num{font-size:110px}}
+
+/* portada del día */
+.portada-dia{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(16px,3vw,60px);align-items:center}
+.portada-dia .cel{font-size:clamp(18px,1.6vw,28px);color:var(--cera-80);margin:.5em 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.2em}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--cera-15);font-size:clamp(14px,1.15vw,18px);background:rgba(243,236,221,.05)}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--color-dia,var(--lit))}
+.ayuda-teclas{margin-top:1.6em;font-size:clamp(14px,1.05vw,17px);color:var(--cera-60)}
+.ayuda-teclas kbd{font-family:var(--sans);font-size:.9em;padding:1px 8px;border-radius:6px;border:1px solid var(--cera-15);background:rgba(243,236,221,.06)}
+@media (max-width:900px){.portada-dia{grid-template-columns:1fr}.portada-dia .corona{max-width:360px}}
+.corona{width:100%;max-width:620px;margin:0 auto}
+.corona svg{width:100%;height:auto;overflow:visible}
+.corona .vela{cursor:default}
+.corona.pide .vela.siguiente{cursor:pointer}
+.llama{transform-box:fill-box;transform-origin:50% 100%;transition:opacity .9s var(--salida),transform .9s var(--salida)}
+.vela.apagada .llama{opacity:0;transform:scale(.2)}
+.vela .halo{transition:opacity 1.2s ease}
+.vela.apagada .halo{opacity:0}
+.humo{opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .vela:not(.apagada) .llama-in{animation:tiembla 2.2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+  .vela:nth-child(2n) .llama-in{animation-duration:1.7s}
+  .vela:not(.apagada) .halo{animation:respira 3.2s ease-in-out infinite alternate}
+  .corona.pide .vela.siguiente rect{animation:llamado 1.6s ease-in-out infinite alternate}
+}
+@keyframes tiembla{0%{transform:scale(1,1) skewX(0)}35%{transform:scale(.96,1.05) skewX(2deg)}70%{transform:scale(1.03,.97) skewX(-2deg)}100%{transform:scale(.98,1.03) skewX(1deg)}}
+@keyframes respira{from{opacity:.7}to{opacity:1}}
+@keyframes llamado{from{filter:brightness(1)}to{filter:brightness(1.45) drop-shadow(0 0 10px rgba(242,180,90,.6))}}
+.toca{display:inline-flex;align-items:center;gap:10px;margin-top:1em}
+
+/* video */
+.video-marco{position:relative;width:min(100%,1100px,calc((100dvh - 300px) * 16 / 9));aspect-ratio:16/9;margin:0 auto;border-radius:18px;overflow:hidden;background:#000;border:1.5px solid var(--cera-15);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.video-marco iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-vacio{display:grid;place-items:center;text-align:center;padding:24px;background:radial-gradient(60% 70% at 50% 40%,#2A2150,#0E0A1E)}
+.video-vacio svg{width:72px;height:72px;margin:0 auto 14px;color:var(--llama)}
+
+/* minuto de silencio */
+.silencio{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,80px);align-items:center}
+.anillo{position:relative;width:clamp(220px,26vw,440px);aspect-ratio:1}
+.anillo svg{width:100%;height:100%;transform:rotate(-90deg)}
+.anillo .pista{stroke:rgba(243,236,221,.12)}
+.anillo .avance{stroke:var(--llama);stroke-linecap:round;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 10px rgba(242,180,90,.55))}
+.anillo .seg{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:clamp(64px,8vw,150px);font-variant-numeric:lining-nums tabular-nums}
+@media (max-width:760px){.silencio{grid-template-columns:1fr;justify-items:center;text-align:center}}
+
+/* preguntas */
+.preguntas{list-style:none;margin:1.2em 0 0;padding:0;display:grid;gap:clamp(14px,2vh,28px);counter-reset:q}
+.preguntas li{counter-increment:q;display:grid;grid-template-columns:auto 1fr;gap:.8em;align-items:baseline;font-family:var(--display);font-weight:500;font-size:clamp(26px,2.9vw,54px);line-height:1.18}
+.preguntas li::before{content:counter(q);font-family:var(--sans);font-weight:700;font-size:.5em;width:1.9em;height:1.9em;border-radius:50%;display:grid;place-items:center;background:rgba(242,180,90,.16);color:var(--llama-suave);transform:translateY(-.15em)}
+
+/* tercio inferior (lower third) */
+.tercio{display:flex;align-items:stretch;gap:0;margin:0 clamp(16px,3vw,44px);min-height:clamp(52px,7vh,74px);overflow:hidden;border-radius:14px;background:linear-gradient(90deg,rgba(20,15,39,.94),rgba(20,15,39,.75));border:1px solid var(--cera-15);box-shadow:0 18px 40px -20px rgba(0,0,0,.8)}
+.tercio .bloque-paso{display:flex;align-items:center;gap:12px;padding:0 clamp(14px,1.6vw,24px);background:var(--llama);color:var(--tinta);font-weight:700;font-size:clamp(15px,1.25vw,21px);white-space:nowrap}
+.tercio .bloque-paso b{font-family:var(--display);font-size:1.6em;line-height:1;font-style:italic}
+.tercio .bloque-lbl{display:flex;align-items:center;padding:0 clamp(14px,1.6vw,24px);font-size:clamp(15px,1.25vw,21px);min-width:0}
+.tercio .bloque-lbl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tercio .bloque-lbl em{font-style:normal;color:var(--cera-60);margin-left:.6em}
+.tercio .franja-color{width:8px;background:var(--color-dia,var(--lit))}
+.tercio.anima .bloque-paso,.tercio.anima .bloque-lbl{animation:tercio .6s var(--salida) both}
+.tercio.anima .bloque-lbl{animation-delay:.08s}
+@keyframes tercio{from{transform:translateX(-24px);opacity:0}to{transform:none;opacity:1}}
+
+/* pie: escaleta (rundown) y controles */
+.tv-pie{display:flex;align-items:center;gap:16px;padding:clamp(10px,1.6vh,18px) clamp(16px,3vw,44px) calc(clamp(12px,2vh,22px) + env(safe-area-inset-bottom))}
+.escaleta{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;list-style:none;margin:0;padding:0;min-width:0}
+.escaleta button{width:100%;background:none;border:0;padding:6px 0 0;text-align:left;display:flex;flex-direction:column;gap:7px;color:var(--cera-60);font-size:clamp(12px,1vw,16px);min-width:0}
+.escaleta .barra{position:relative;display:block;height:5px;border-radius:5px;background:rgba(243,236,221,.14);overflow:hidden}
+.escaleta .barra i{position:absolute;inset:0;width:var(--p,0%);background:var(--llama);border-radius:5px;transition:width .6s var(--salida);box-shadow:0 0 12px rgba(242,180,90,.6)}
+.escaleta .nombre{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.escaleta li.hecho .nombre{color:var(--cera-80)}
+.escaleta li.actual .nombre{color:var(--cera);font-weight:700}
+.controles{display:flex;gap:10px;flex:none;transition:opacity .4s ease}
+.controles .ico-btn{width:56px;height:56px;border-radius:16px}
+.controles .ico-btn.sig{background:var(--llama);color:var(--tinta);border-color:transparent}
+.controles .ico-btn.sig:hover{background:var(--llama-suave)}
+.tv.quieto .controles,.tv.quieto .tv-der .ico-btn{opacity:.12}
+.tv.quieto{cursor:none}
+@media (max-width:760px){
+  .escaleta .nombre{display:none}
+  .tercio{margin:0 12px}
+  .tercio .bloque-paso span{display:none}
+  .mosca .que{display:none}
+  .reloj{display:none}
+}
+
+/* ---------- 4. Ventana del día vivido ---------- */
+.vivido{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:clamp(10px,3vw,40px);background:rgba(8,6,18,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.vivido-caja{position:relative;width:min(100%,1180px);max-height:100%;overflow:auto;border-radius:26px;background:linear-gradient(170deg,#211A42,#120D26 60%);border:1.5px solid rgba(242,180,90,.38);box-shadow:0 40px 120px -40px rgba(0,0,0,.9)}
+.vivido.abre .vivido-caja{animation:abre .7s var(--salida) both}
+@keyframes abre{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+.vivido-cabeza{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:18px;padding:22px clamp(18px,3vw,40px);background:linear-gradient(180deg,#211A42 70%,rgba(33,26,66,0));}
+.sello-anim{width:clamp(70px,8vw,104px);flex:none;position:relative}
+.sello-anim img{width:100%;height:auto;filter:drop-shadow(0 0 18px rgba(242,180,90,.35))}
+.vivido.abre .sello-anim{animation:sella .9s cubic-bezier(.2,1.4,.4,1) .25s both}
+@keyframes sella{from{opacity:0;transform:scale(1.8) rotate(-12deg)}to{opacity:1;transform:none}}
+.vivido-cabeza .que{margin:0;font-size:16px;color:var(--llama-suave);font-weight:700}
+.vivido-cabeza h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,3.6vw,52px);line-height:1;margin:4px 0 0}
+.vivido-cabeza .cerrar{margin-left:auto;align-self:flex-start}
+.vivido-cuerpo{padding:4px clamp(18px,3vw,40px) 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.vivido-acciones{position:sticky;bottom:0;display:flex;flex-wrap:wrap;gap:10px;padding:16px clamp(18px,3vw,40px) 22px;background:linear-gradient(0deg,#120D26 70%,rgba(18,13,38,0))}
+.vivido-acciones .btn{flex:1 1 220px}
+@media (max-width:820px){.vivido-cuerpo{grid-template-columns:1fr}}
+
+/* bloques del resumen */
+.r-bloque{border-radius:18px;padding:18px 20px;background:rgba(243,236,221,.05);border:1px solid var(--cera-15);opacity:0;animation:rv .7s var(--salida) forwards;animation-delay:calc(var(--d,0) * 90ms + 300ms)}
+.r-bloque h3{margin:0 0 8px;font-size:15px;font-weight:700;color:var(--llama-suave)}
+.r-bloque p{margin:0 0 8px}
+.r-bloque p:last-child{margin-bottom:0}
+.r-clave,.r-proposito{grid-column:1/-1;background:linear-gradient(120deg,rgba(242,180,90,.16),rgba(107,75,176,.12));border-color:rgba(242,180,90,.4)}
+.r-grande{font-family:var(--display);font-size:clamp(24px,2.2vw,32px);line-height:1.22}
+.r-lista{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.r-lista b{display:block;font-size:16px}
+.r-lista span{color:var(--cera-80)}
+.r-cita-biblica{font-weight:700}
+.r-sub{font-family:var(--display);font-size:22px;font-weight:600}
+.r-voz,.r-cita,.r-antifona,.r-oracion{font-family:var(--display);font-size:22px;line-height:1.3}
+.r-cita{margin:0 0 8px}
+.r-cita.idea{font-style:normal}
+.r-firma{font-size:15px;color:var(--llama-suave)}
+.r-firma span{color:var(--cera-60)}
+.r-preg{margin:0;padding-left:1.2em;display:grid;gap:6px}
+@media (prefers-reduced-motion:reduce){.r-bloque{animation:none;opacity:1}}
+</style>
+</head>
+<body>
+<div class="cielo" aria-hidden="true"></div>
+<div class="grano" aria-hidden="true"></div>
+
+<!-- 1. Entrada -->
+<main class="vista entrada" id="vEntrada" hidden>
+  <div class="entrada-caja">
+    <img class="marca" src="img/logo-blanco.png" alt="Divina Data" width="420" height="209">
+    <figure class="corona corona-chica" id="coronaEntrada" aria-hidden="true"><svg viewBox="0 0 640 470"></svg></figure>
+    <p class="lema">Adviento 2026, Maranatha</p>
+    <h1>El encuentro</h1>
+    <p class="txt">Cada noche a las 10:00 p. m. rezamos juntos la ruta del día. Escribe la contraseña que recibiste en el grupo para entrar.</p>
+    <form class="campo" id="fClave" autocomplete="off">
+      <label for="clave">Contraseña</label>
+      <div class="campo-fila">
+        <input id="clave" name="clave" type="password" inputmode="text" autocapitalize="characters" spellcheck="false" required aria-describedby="claveError">
+        <button class="btn luz" type="submit">Entrar</button>
+      </div>
+      <p class="error" id="claveError" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+
+<!-- 2. Sala -->
+<main class="vista sala" id="vSala" hidden>
+  <header class="sala-cabeza">
+    <img class="marca" src="img/logo-blanco.png" alt="Divina Data" width="420" height="209">
+    <a class="volver" href="index.html">Volver al camino de Adviento</a>
+  </header>
+  <section class="sala-hero">
+    <div>
+      <p class="lema">Adviento 2026, Maranatha</p>
+      <h1>El encuentro de cada noche</h1>
+      <p class="txt">Un recorrido de oración en seis pasos, con la Palabra de Dios, la liturgia, los Padres de la Iglesia y los santos. Quien guía avanza paso a paso; al terminar, guardas el día vivido en PDF.</p>
+      <div class="aviso-revision" id="avisoRevision" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.8-1.2"/></svg>
+        <span><b>Modo revisión:</b> todos los días están abiertos. Cuando lo cierres, cada día se abrirá a las 12:00 a. m. (hora de Lima) de su fecha.</span>
+      </div>
+    </div>
+    <article class="destacado" id="destacado"></article>
+  </section>
+  <div id="semanas"></div>
+</main>
+
+<!-- 3. Proyección -->
+<section class="tv" id="vTv" hidden aria-label="Proyección del encuentro">
+  <div class="tv-fondo" aria-hidden="true"></div>
+  <img class="agua" src="img/sello-blanco.png" alt="" aria-hidden="true" width="497" height="600">
+  <header class="tv-top">
+    <div class="mosca">
+      <img src="img/logo-blanco.png" alt="Divina Data" width="420" height="209">
+      <p class="que" id="tvQue"></p>
+    </div>
+    <div class="tv-der">
+      <span class="reloj" aria-hidden="true"><i></i><span id="reloj"></span></span>
+      <button class="ico-btn" type="button" id="bPantalla" aria-label="Pantalla completa (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+      <button class="ico-btn" type="button" id="bSalir" aria-label="Volver a la sala"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </header>
+  <div class="escenario" id="escenario" aria-live="polite"></div>
+  <div class="tercio" id="tercio">
+    <div class="franja-color" aria-hidden="true"></div>
+    <div class="bloque-paso" id="tercioPaso"></div>
+    <div class="bloque-lbl" id="tercioLbl"></div>
+  </div>
+  <footer class="tv-pie">
+    <ol class="escaleta" id="escaleta" aria-label="Pasos del encuentro"></ol>
+    <div class="controles">
+      <button class="ico-btn" type="button" id="bAnt" aria-label="Anterior (flecha izquierda)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="ico-btn sig" type="button" id="bSig" aria-label="Siguiente (flecha derecha o espacio)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </footer>
+  <div class="barrido" id="barrido" aria-hidden="true"><i></i></div>
+</section>
+
+<!-- 4. Día vivido -->
+<div class="vivido" id="vVivido" role="dialog" aria-modal="true" aria-labelledby="vivTit" hidden>
+  <div class="vivido-caja">
+    <header class="vivido-cabeza">
+      <div class="sello-anim"><img src="img/sello-blanco.png" alt="" width="497" height="600"></div>
+      <div>
+        <p class="que" id="vivQue"></p>
+        <h2 id="vivTit"></h2>
+      </div>
+      <button class="ico-btn cerrar" type="button" id="vivCerrar" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </header>
+    <div class="vivido-cuerpo" id="vivCuerpo"></div>
+    <footer class="vivido-acciones">
+      <a class="btn luz" id="vivPdf" href="#" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Descargar el día en PDF</a>
+      <a class="btn wa" id="vivWa" href="#" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+      <button class="btn linea" type="button" id="vivSala">Volver a la sala</button>
+    </footer>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="dias.js"></script>
+<script src="ruta.js"></script>
+<script src="encuentro-datos.js"></script>
+<script src="resumen.js"></script>
+<script src="encuentro.js"></script>
+</body>
+</html>

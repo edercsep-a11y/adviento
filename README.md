@@ -25,3 +25,13 @@ Para revisar todos los días antes de tiempo: añade `?vista=todo` al final de l
 La ruta de oración de cada día (resumen de lecturas, meditación, preces y oración final) está en `ruta.js`.
 
 Lecturas: calendario litúrgico de la Conferencia Episcopal Peruana. Domingos: ciclo B.
+
+## Encuentro de las 10 p. m. (proyección)
+
+- Página: `encuentro.html` (botón «Entrar al encuentro» en la portada del Adviento).
+- Contraseña de entrada: la que se comparte en el grupo de WhatsApp. Se pide una sola vez por dispositivo.
+- **Candados:** en `encuentro-datos.js`, `abrirTodo: true` deja todos los días abiertos para revisar.
+  Cámbialo a `abrirTodo: false` y cada día se abrirá a las 12:00 a. m. (hora de Lima) de su fecha.
+- Quien guía avanza con la flecha derecha, la barra espaciadora o un presentador (clicker); `F` pone pantalla completa.
+- Al terminar se abre la ventana del día vivido con su PDF (`pdf/adviento-2026-dia-NN.pdf`), con el logo, el sello y la marca de agua de Divina Data.
+- Contenido: `dias.js` (lecturas y liturgia), `ruta.js` (meditación y oraciones) y `encuentro-datos.js` (Padres de la Iglesia, palabra de los santos y antífonas «Oh»).
