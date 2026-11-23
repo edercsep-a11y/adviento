@@ -7,7 +7,10 @@
   var esc = DIA.esc;
   var params = new URLSearchParams(location.search);
   var URL_PAGINA = A.paginaOficial || "https://www.divinadataoficial.com/#adviento";
-  var CLAVE_OK = "dd-encuentro-2026-ok", CLAVE_VIV = "dd-adviento-2026-vividos";
+  var CLAVE_VIV = "dd-adviento-2026-vividos", SESION = "dd-encuentro-sesion";
+  /* la contraseña se pide cada vez que alguien entra al encuentro (vale solo para esta pestaña abierta) */
+  function sesionAbierta(){ try { return sessionStorage.getItem(SESION) === "1"; } catch(e){ return false; } }
+  function abrirSesion(){ try { sessionStorage.setItem(SESION, "1"); } catch(e){} }
   var reducido = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function hoyLima(){
@@ -114,7 +117,7 @@
       if (!v) return;
       if (!window.crypto || !crypto.subtle) { entrar(); return; }
       sha256(v).then(function(h){
-        if (h === E.claveHash) { guardar(CLAVE_OK, 1); entrar(); }
+        if (h === E.claveHash) { abrirSesion(); entrar(); }
         else {
           err.textContent = "La contraseña no coincide. Revísala y vuelve a intentarlo.";
           f.classList.remove("sacudir"); void f.offsetWidth; f.classList.add("sacudir");
@@ -123,12 +126,7 @@
       });
     });
   }
-  function entrar(){
-    var m = location.hash.match(/^#dia-(\d{4}-\d{2}-\d{2})$/);
-    var i = m ? D.findIndex(function(d){ return d.f === m[1]; }) : -1;
-    iniciarSala();
-    if (i >= 0 && abierto(D[i])) abrirDia(i, 0);
-  }
+  function entrar(){ iniciarSala(); }
 
   /* ---------- 2. Sala ---------- */
   var salaLista = false;
@@ -150,6 +148,45 @@
     if (d.f > HOY) return { cls: "", html: ICO.abierto, lbl: "Abierto para revisión" };
     return { cls: "", html: "", lbl: "Abierto" };
   }
+  var velasSala = null;
+  function siguientePorVivir(){
+    for (var k = 0; k < D.length; k++) if (abierto(D[k]) && !vividos[D[k].f]) return k;
+    return -1;
+  }
+  function pintarPanel(){
+    var n = D.filter(function(d){ return vividos[d.f]; }).length;
+    $("#nVividos").textContent = n;
+    $("#velitas").innerHTML = D.map(function(d, k){
+      var c = (vividos[d.f] ? "viv" : "") + (d.f === HOY ? " hoy" : "") + (k > 0 && DIA.semanaDe(d.f) !== DIA.semanaDe(D[k - 1].f) ? " semana" : "");
+      return '<li class="' + c.trim() + '"></li>';
+    }).join("");
+    if (!velasSala) velasSala = corona($("#coronaSala svg"));
+    var sem = HOY < A.inicio ? 0 : (DIA.semanaDe(HOY) || 4);
+    if (reducido) encender(velasSala, sem);
+    else { encender(velasSala, 0); velasSala.forEach(function(g, k){ if (k < sem) setTimeout(function(){ g.classList.remove("apagada"); }, 300 + k * 420); }); }
+    var iHoy = D.findIndex(function(d){ return d.f === HOY; });
+    var sig = siguientePorVivir();
+    var i = iHoy >= 0 && !vividos[D[iHoy].f] ? iHoy : (sig >= 0 ? sig : (HOY < A.inicio ? 0 : D.length - 1)), d = D[i];
+    var que = d.f === HOY ? "Esta noche, a las 10:00 p. m." : (HOY < A.inicio ? "Empezamos el domingo 29 de noviembre" : (n ? "Continúa tu camino" : "Empieza tu camino"));
+    var puede = abierto(d);
+    $("#destacado").innerHTML = '<p class="rubrica">' + que + '</p><h2>Día ' + (i + 1) + ': ' + esc(d.titulo) + '</h2><p class="cel">' + esc(DIA.mayus(DIA.fechaLarga(d.f))) + ', ' + esc(d.cel) + '</p>' +
+      '<div class="acciones">' + (puede ? '<button class="btn vela" type="button" id="bEmpezar">' + (n && d.f !== HOY ? 'Continuar en el día ' + (i + 1) : 'Empezar el encuentro') + '</button>' : '<span class="btn linea" aria-disabled="true">Se abre a las 12:00 a. m.</span>') +
+      '<a class="btn linea" href="' + esc(A.grupo) + '" target="_blank" rel="noopener">Grupo de WhatsApp</a></div>';
+    var be = $("#bEmpezar"); if (be) be.addEventListener("click", function(){ abrirDia(i, 0); });
+  }
+  function detalleDia(i){
+    var x = DIA.datos(i), d = D[i], ok = abierto(d);
+    var lects = d.lects.map(function(l){ return '<li>' + esc(l[0]) + ': ' + esc(l[1]) + '</li>'; }).join("");
+    return '<div class="detalle-in">' +
+      '<div><h4>La Palabra de hoy</h4><ul>' + lects + '</ul></div>' +
+      (x.lectura ? '<div><h4>Lectura de los Padres</h4><p class="tema">' + esc(x.lectura.tema) + '</p><p>' + esc(x.lectura.enc) + '</p></div>' : '') +
+      (x.santo ? '<div><h4>Palabra de los santos</h4><p>' + esc(x.santo.a) + '</p></div>' : '') +
+      '<div><h4>Propósito</h4><p>' + esc(d.vivir) + '</p></div>' +
+      '<div class="acciones">' + (ok
+        ? '<button class="btn vela" type="button" data-empezar="' + i + '">' + (vividos[d.f] ? 'Volver a vivir este día' : 'Empezar este día') + '</button><a class="btn linea" href="' + x.pdf + '" download="' + x.pdfNombre + '">Descargar el PDF</a>'
+        : '<span class="btn linea" aria-disabled="true">' + ICO.candado.replace('<svg', '<svg width="18" height="18"') + 'Se abre el ' + esc(DIA.fechaLarga(d.f)) + ' a las 12:00 a. m.</span>') +
+      '</div></div>';
+  }
   function pintarSala(){
     var cont = $("#semanas"); cont.innerHTML = "";
     A.semanas.forEach(function(s, k){
@@ -158,31 +195,33 @@
       sec.innerHTML = '<h2><span class="num">' + ROM[k] + '</span>' + ORD[k] + ' semana: ' + esc(s.nombre) + '</h2><p>' + esc(s.texto) + '</p><ol class="ordo"></ol>';
       var ol = sec.querySelector("ol");
       items.forEach(function(o){
-        var d = o.d, st = estadoFila(d), dd = +d.f.slice(8, 10);
-        var li = document.createElement("li"), b = document.createElement("button");
-        b.type = "button"; b.className = "fila " + st.cls;
-        b.style.setProperty("--color-dia", colorDe(d));
-        b.setAttribute("aria-label", "Día " + (o.i + 1) + ", " + DIA.fechaLarga(d.f) + ": " + d.titulo + ". " + st.lbl);
-        b.innerHTML = '<span class="f-fecha" aria-hidden="true"><b>' + dd + '</b><small>' + diaSemana(d.f) + '</small></span>' +
-          '<span class="f-txt"><span class="f-cel">' + esc(d.cel) + '</span><span class="f-tit">' + esc(d.titulo) + '</span></span>' +
-          '<span class="f-estado" aria-hidden="true">' + st.html + '</span>';
+        var d = o.d, st = estadoFila(d), dd = +d.f.slice(8, 10), idDet = "det-" + d.f;
+        var li = document.createElement("li");
+        li.innerHTML = '<button type="button" class="fila ' + st.cls + '" aria-expanded="false" aria-controls="' + idDet + '" style="--color-dia:' + colorDe(d) + '">' +
+          '<span class="f-fecha" aria-hidden="true"><b>' + dd + '</b><small>' + diaSemana(d.f) + '</small></span>' +
+          '<span class="f-txt"><span class="f-cel">' + esc(d.cel) + '</span><span class="f-tit">Día ' + (o.i + 1) + ': ' + esc(d.titulo) + '</span></span>' +
+          '<span class="f-estado" aria-hidden="true">' + st.html + '</span>' +
+          '<svg class="giro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>' +
+          '<div class="detalle" id="' + idDet + '"><div></div></div>';
+        var b = li.querySelector(".fila"), det = li.querySelector(".detalle > div");
+        b.setAttribute("aria-label", "Día " + (o.i + 1) + ", " + DIA.fechaLarga(d.f) + ": " + d.titulo + ". " + st.lbl + ". Ver detalles");
         b.addEventListener("click", function(){
-          if (abierto(d)) abrirDia(o.i, 0);
-          else toast("Este día se abre el " + DIA.fechaLarga(d.f) + " a las 12:00 a. m.");
+          var abrir = !li.classList.contains("abierta");
+          [].forEach.call(document.querySelectorAll(".ordo li.abierta"), function(x){ x.classList.remove("abierta"); x.querySelector(".fila").setAttribute("aria-expanded", "false"); });
+          if (abrir) {
+            if (!det.innerHTML) {
+              det.innerHTML = detalleDia(o.i);
+              var be = det.querySelector("[data-empezar]");
+              if (be) be.addEventListener("click", function(){ abrirDia(o.i, 0); });
+            }
+            li.classList.add("abierta"); b.setAttribute("aria-expanded", "true");
+          }
         });
-        li.appendChild(b); ol.appendChild(li);
+        ol.appendChild(li);
       });
       cont.appendChild(sec);
     });
-    var iHoy = D.findIndex(function(d){ return d.f === HOY; });
-    var antes = HOY < A.inicio;
-    var i = iHoy >= 0 ? iHoy : antes ? 0 : D.length - 1, d = D[i];
-    var que = iHoy >= 0 ? "Esta noche, a las 10:00 p. m." : antes ? "Empezamos el domingo 29 de noviembre" : "Volver a vivir el último día";
-    var puede = abierto(d);
-    $("#destacado").innerHTML = '<p class="rubrica">' + que + '</p><h2>' + esc(d.titulo) + '</h2><p class="cel">' + esc(DIA.mayus(DIA.fechaLarga(d.f))) + ', ' + esc(d.cel) + '</p>' +
-      '<div class="acciones">' + (puede ? '<button class="btn vela" type="button" id="bEmpezar">Empezar el encuentro</button>' : '<span class="btn linea" aria-disabled="true">Se abre a las 12:00 a. m.</span>') +
-      '<a class="btn linea" href="' + esc(A.grupo) + '" target="_blank" rel="noopener">Grupo de WhatsApp</a></div>';
-    var be = $("#bEmpezar"); if (be) be.addEventListener("click", function(){ abrirDia(i, 0); });
+    pintarPanel();
   }
 
   /* ---------- 3. Proyección ---------- */
@@ -527,12 +566,12 @@
   reloj(); setInterval(reloj, 15000);
 
   window.addEventListener("hashchange", function(){
-    if (!leer(CLAVE_OK, 0)) return;
+    if (!sesionAbierta()) return;
     var m = location.hash.match(/^#dia-(\d{4}-\d{2}-\d{2})$/);
     var i = m ? D.findIndex(function(d){ return d.f === m[1]; }) : -1;
     if (i >= 0 && i !== idx && abierto(D[i])) abrirDia(i, 0);
   });
 
   /* ---------- arranque ---------- */
-  if (leer(CLAVE_OK, 0)) entrar(); else iniciarEntrada();
+  if (sesionAbierta()) entrar(); else iniciarEntrada();
 })();

@@ -101,7 +101,7 @@ svg{display:block}
 .semana > p{margin:0 0 12px;color:var(--cera-3);font-size:16px}
 .ordo{list-style:none;margin:0;padding:0;border-top:1px solid var(--filete)}
 .ordo li{border-bottom:1px solid var(--filete)}
-.fila{width:100%;display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 8px 12px 0;background:none;border:0;text-align:left;transition:background-color .18s ease}
+.fila{width:100%;display:grid;grid-template-columns:62px minmax(0,1fr) auto 18px;gap:14px;align-items:center;padding:12px 8px 12px 0;background:none;border:0;text-align:left;transition:background-color .18s ease}
 .fila:hover{background:rgba(242,235,221,.04)}
 .f-fecha{display:flex;flex-direction:column;align-items:center;line-height:1;padding:4px 0 4px;border-left:3px solid var(--color-dia,#7A5AC8)}
 .f-fecha b{font-family:var(--display);font-size:32px;font-weight:600}
@@ -117,6 +117,32 @@ svg{display:block}
 .fila.cerrado:hover{background:none}
 .aviso{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);opacity:0;z-index:80;background:var(--noche-3);border:1px solid rgba(242,235,221,.25);padding:13px 18px;border-radius:10px;font-size:17px;max-width:min(92vw,500px);text-align:center;transition:opacity .22s ease,transform .3s var(--salida);pointer-events:none}
 .aviso.ver{opacity:1;transform:translate(-50%,0)}
+/* panel interactivo de la sala */
+.panel{display:grid;gap:4px;padding:6px 0 0}
+.panel .corona{max-width:360px;margin:-20px auto -6px}
+.progreso{margin:0;text-align:center;font-size:17px;color:var(--cera-2)}
+.progreso b{font-family:var(--display);font-size:30px;color:var(--vela);margin-right:4px}
+.velitas{list-style:none;margin:8px 0 14px;padding:0;display:grid;grid-template-columns:repeat(26,1fr);gap:3px}
+.velitas li{height:22px;border-radius:2px;background:rgba(242,235,221,.1);position:relative}
+.velitas li.viv{background:var(--vela)}
+.velitas li.hoy{outline:2px solid var(--vela);outline-offset:1px}
+.velitas li.semana{margin-left:5px}
+/* filas desplegables del ordo */
+.ordo li.abierta{background:rgba(242,235,221,.035)}
+.fila .giro{width:18px;height:18px;transition:transform .3s var(--salida);color:var(--cera-3)}
+.ordo li.abierta .fila .giro{transform:rotate(180deg)}
+.detalle{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s var(--salida)}
+.ordo li.abierta .detalle{grid-template-rows:1fr}
+.detalle > div{overflow:hidden}
+.detalle-in{padding:2px 8px 18px 76px;display:grid;gap:10px;font-size:16px;color:var(--cera-2)}
+.detalle-in h4{margin:0;font-family:var(--display);font-style:italic;font-weight:600;font-size:18px;color:var(--rubrica)}
+.detalle-in p{margin:0}
+.detalle-in ul{margin:0;padding:0;list-style:none;display:grid;gap:2px}
+.detalle-in .tema{font-family:var(--display);font-size:20px;color:var(--cera)}
+.detalle-in .acciones{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.detalle-in .btn{min-height:46px;padding:10px 16px;font-size:16px}
+@media (max-width:560px){.detalle-in{padding-left:14px}}
+@media (prefers-reduced-motion:reduce){.detalle,.fila .giro{transition:none}}
 @media (max-width:900px){.sala-intro,.semanas{grid-template-columns:1fr}.sala-intro{margin-top:28px}}
 
 /* ---------- 3. Proyección estilo televisión ---------- */
@@ -344,7 +370,12 @@ svg{display:block}
       <p class="txt">Seis pasos de oración con la Palabra de Dios, la liturgia, los Padres de la Iglesia y los santos. Quien guía avanza paso a paso; al terminar, cada uno guarda en PDF el día vivido.</p>
       <p class="revision" id="avisoRevision" hidden><b>Modo revisión.</b> Todos los días están abiertos. Cuando se cierre, cada día se abrirá a las 12:00 a. m. (hora de Lima) de su fecha.</p>
     </div>
-    <article class="esta-noche" id="destacado"></article>
+    <aside class="panel" id="panel" aria-label="Tu camino de Adviento">
+      <figure class="corona" id="coronaSala" aria-hidden="true"><svg viewBox="0 0 640 470"></svg></figure>
+      <p class="progreso"><b id="nVividos">0</b> de 26 días vividos</p>
+      <ol class="velitas" id="velitas" aria-hidden="true"></ol>
+      <div class="esta-noche" id="destacado"></div>
+    </aside>
   </section>
   <div class="semanas" id="semanas"></div>
 </main>
@@ -403,10 +434,10 @@ svg{display:block}
 
 <div class="aviso" id="toast" role="status" aria-live="polite"></div>
 
-<script src="/adviento/dias.js?v=20261123e"></script>
-<script src="/adviento/ruta.js?v=20261123e"></script>
-<script src="/adviento/encuentro-datos.js?v=20261123e"></script>
-<script src="/adviento/resumen.js?v=20261123e"></script>
-<script src="/adviento/encuentro.js?v=20261123e"></script>
+<script src="/adviento/dias.js?v=20261123f"></script>
+<script src="/adviento/ruta.js?v=20261123f"></script>
+<script src="/adviento/encuentro-datos.js?v=20261123f"></script>
+<script src="/adviento/resumen.js?v=20261123f"></script>
+<script src="/adviento/encuentro.js?v=20261123f"></script>
 </body>
 </html>
