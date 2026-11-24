@@ -5,7 +5,8 @@
   Para publicar el video de un día: copia el enlace de YouTube y pégalo
   entre las comillas de  video: ""  de ese día. Ejemplo:
       video: "https://youtu.be/AbCdEfGhIjk"
-  Sirve cualquier enlace de YouTube (youtu.be, youtube.com/watch?v=, shorts).
+  Sirve cualquier enlace de YouTube (youtu.be, youtube.com/watch?v=, shorts)
+  o un archivo MP4 guardado en la carpeta video, por ejemplo  video: "video/dia-01.mp4".
   El día se abre solo en su fecha (hora de Lima).
 
   Lecturas: Calendario litúrgico de la Conferencia Episcopal Peruana

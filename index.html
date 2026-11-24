@@ -597,6 +597,7 @@ footer{background:var(--papel);color:var(--tinta-suave);padding:0 clamp(18px,5vw
   /* ---------- reproductor ---------- */
   var VELA_SVG = '<svg viewBox="0 0 70 110" aria-hidden="true"><rect x="27" y="52" width="16" height="58" rx="3" fill="#6B4BB0"/><g class="vela"><g class="llama-in"><path d="M35 8 C44 22 46 36 35 46 C24 36 26 22 35 8Z" fill="url(#g-llama)"/><path d="M35 26 C39 32 39 38 35 42 C31 38 31 32 35 26Z" fill="#FFFBEF"/></g></g></svg>';
   function htmlVideo(url, titulo, espera){
+    if (/\.mp4(\?|$)/i.test(url || "")) return '<video class="video-intro" controls playsinline preload="metadata" aria-label="' + titulo.replace(/"/g, "&quot;") + '"><source src="' + url + '" type="video/mp4">Tu navegador no puede mostrar este video.</video>';
     var id = idVideo(url);
     if (id) return '<button class="poster" type="button" data-id="' + id + '" data-tit="' + titulo.replace(/"/g, "&quot;") + '" style="background-image:url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg)" aria-label="Reproducir: ' + titulo.replace(/"/g, "&quot;") + '"><span><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>Ver el video</span></button><img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209">';
     return '<div class="espera"><div>' + VELA_SVG + '<b>' + espera[0] + '</b><p>' + espera[1] + '</p></div></div><img class="sala-marca" src="img/logo-blanco.png" alt="" width="420" height="209">';

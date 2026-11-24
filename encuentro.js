@@ -295,9 +295,9 @@
       '<p class="e-cita">' + esc(x.evangelio.cita) + '</p><span class="e-nota">Se proclama el Evangelio del día.</span>' +
       '<p class="e-medio">' + esc(x.evangelio.res) + '</p>' +
       '<p class="e-amen">Palabra del Señor. <span class="R" aria-hidden="true">R</span>Gloria a ti, Señor Jesús.</p></div>');
-    var vid = idVideo(x.video);
-    add(2, "Video del día", '<div class="video-marco' + (vid ? '' : ' video-vacio') + '">' +
-      (vid ? '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '?rel=0&modestbranding=1" title="Video del día ' + x.n + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>'
+    var vid = idVideo(x.video), mp4 = /\.mp4(\?|$)/i.test(x.video || "") ? (/^(https?:)?\//.test(x.video) ? x.video : "/adviento/" + x.video) : "";
+    add(2, "Video del día", '<div class="video-marco' + (vid || mp4 ? '' : ' video-vacio') + '">' +
+      (mp4 ? '<video controls playsinline preload="metadata" src="' + mp4 + '" title="Video del día ' + x.n + '"></video>' : vid ? '<iframe src="https://www.youtube-nocookie.com/embed/' + vid + '?rel=0&modestbranding=1" title="Video del día ' + x.n + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>'
            : '<div>' + ICO.play + '<p class="e-medio centro">El video de 3 minutos de hoy</p><p class="e-texto centro">Aparecerá aquí en cuanto se publique.</p></div>') + '</div>', { tipo: "video" });
     add(2, "La liturgia nos enseña", '<div>' + rub('La liturgia nos enseña') +
       '<h2 class="e-cita">' + esc(x.aprende.t) + '</h2>' +
